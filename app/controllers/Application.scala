@@ -10,7 +10,7 @@ object Application extends Controller {
   
   def index = Action {
 
-	val toString: Enumeratee[Event, String] = Enumeratee.map[Event] { 
+    val toString: Enumeratee[Event, String] = Enumeratee.map[Event] { 
       case SpeedEvent(car, newSpeed) => 
       	"Speed event for car %s, new speed is : %d km/h\n".format(car,newSpeed)
       case DistEvent(car, newDist) => 
