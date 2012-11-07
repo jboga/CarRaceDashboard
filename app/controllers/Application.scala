@@ -2,19 +2,25 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import models.Streams
-import models.Streams._
 import play.api.libs.iteratee._
+import models.Streams._
+import models.Streams
 
 object Application extends Controller {
   
-  def index = Action {
+   def index = Action {
 
-    val toString: Enumeratee[Event, String] = Enumeratee.map[Event] { 
+    val toString: Enumeratee[Event, String] = Enumeratee.map[Event] {
       case SpeedEvent(car, newSpeed) => 
-      	"Speed event for car %s, new speed is : %d km/h\n".format(car,newSpeed)
+        "Speed event for car %s, new speed is : %d km/h\n".format(car,newSpeed)
       case DistEvent(car, newDist) => 
-      	"Dist event for car %s, new dist is : %d m\n".format(car,newDist)
+        "Dist event for car %s, new dist is : %f m \n".format(car,newDist)
+      case PositionEvent(car, latitude, longitude) =>
+        "Position event for car %s, new position is : %f , %f\n".format(car,latitude,longitude)
+    }
+
+    val debug: Enumeratee[Event, String] = Enumeratee.map[Event] { x=>
+      x.toString+"\n"
     }
 
     Ok.stream(Streams.events &> toString)
