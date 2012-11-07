@@ -5,10 +5,17 @@ import play.api.mvc._
 import play.api.libs.iteratee._
 import models.Streams._
 import models.Streams
+import models.Race._
 
 object Application extends Controller {
-  
-   def index = Action {
+
+  def startRace = Action {
+    models.Race.raceActor ! "nextRun"
+    Ok("started")
+  }
+
+
+  def index = Action {
 
     val toString: Enumeratee[Event, String] = Enumeratee.map[Event] {
       case SpeedEvent(car, newSpeed) => 
@@ -16,11 +23,7 @@ object Application extends Controller {
       case DistEvent(car, newDist) => 
         "Dist event for car %s, new dist is : %f m \n".format(car,newDist)
       case PositionEvent(car, latitude, longitude) =>
-        "Position event for car %s, new position is : %f , %f\n".format(car,latitude,longitude)
-    }
-
-    val debug: Enumeratee[Event, String] = Enumeratee.map[Event] { x=>
-      x.toString+"\n"
+        "Position event for car %s, new position is : %f %f\n".format(car,latitude,longitude)
     }
 
     Ok.stream(Streams.events &> toString)

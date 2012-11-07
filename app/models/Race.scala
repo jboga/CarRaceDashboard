@@ -5,66 +5,84 @@ import play.api.libs.concurrent._
 import scala.util.Random
 import akka.actor._
 import akka.util.duration._
+import models.CourseParser._
 
 object Race {
 
     case class Position(latitude:Double,longitude:Double)
     case class CheckPoint(id:Int,position:Position,distFromPrevious:Double)    
 
-    type Race = List[CheckPoint]
-    type RaceLog = List[(CheckPoint,Long)] // race log for a car : list of checkpoints with time passage
+    type Course = List[CheckPoint]
 
-    private lazy val course=RaceParser.readRace("LeMans.kml")
+    // Case class representing a Car at a specific point of the course
+    case class Car(label:String,point:CheckPoint,totalDist:Double){
 
-    def next(point:CheckPoint)=
-      if (point.id+1>=race.size)
+      def moveToCheckpoint(newPoint:CheckPoint)=
+        copy(
+          point = newPoint,
+          totalDist = totalDist + newPoint.distFromPrevious
+        )
+
+    }
+
+    // Load course from kml (list of checkpoints)
+    private lazy val course:Course = readCourse("LeMans.kml")
+
+    // Get next checkpoint, based on course
+    private def next(point:CheckPoint)=
+      if (point.id+1>=course.size)
         course(0) // new lap
       else
         course(point.id+1)
 
-    
-    case class Car(label:String,log:RaceLog,totalDist:Double){
-      def addCheckpoint(point:CheckPoint,time:Long)=
-        copy(
-          log = (point,time) :: log,
-          totalDist = totalDist+point.distFromPrevious
-        )
-    }
-
-    val cars = List(
+    // List of concurrents
+    private val cars = Vector(
       "voiture 1",
       "voiture 2",
       "voiture 3"
     )
 
-    val race = collection.mutable.Map[String,Car](
-      cars.map{carLabel=>
-        (
-          carLabel,
-          Car(carLabel,List[(CheckPoint,Long)]((course(0),0)),0)
-        )
-      }:_*
-    )
+    // Starting grid : all cars at first checkpoint
+    private lazy val startingGrid = cars.map(Car(_,course(0),0))
 
-    def move(car:String)={
-      val old=race(car)
-      race.update(
-        car,
-        old.addCheckpoint(
-          next(old.log.head._1),
-          System.currentTimeMillis
+    // Stream of the race. Each value is the list of all Car positions at time t
+    val race:Stream[Vector[Car]]={
+
+      def loop(prev:Vector[Car]):Stream[Vector[Car]]={
+        val index=Random.nextInt(prev.size)
+        val car=prev(index)
+        prev #:: loop(
+          prev.updated(
+            index,
+            car.moveToCheckpoint(next(car.point))
+          )
         )
-      )
+      }
+
+      loop(startingGrid)
     }
 
+    // Actor which iterate from the stream
     val raceActor =  ActorSystem("RaceSystem").actorOf(Props(new Actor {
+
+      val iterator=race.iterator
+      var currentState:Option[Vector[Car]]=None
+
       def receive = {
-        case _ =>
-          move(cars(Random.nextInt(cars.size)))
-          context.system.scheduler.scheduleOnce(Random.nextInt(5) seconds,self,"move")
+
+        case "nextRun" =>
+          // Get current state
+          currentState=Some(iterator.next)
+          // Schedule next run
+          context.system.scheduler.scheduleOnce(Random.nextInt(2000) millisecond,self,"nextRun")
+
+        // Get data about a specific car at time t
+        case ("getCar",car:Int) =>
+          sender ! currentState.map(state=>Some(state(car))).getOrElse(None)
       }
     }))
 
-    raceActor ! "move"
+    // Get a random car index in the vector
+    def randomCar=Random.nextInt(cars.size)
 
 }

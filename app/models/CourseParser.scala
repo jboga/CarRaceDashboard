@@ -6,9 +6,10 @@ import scala.xml._
 import play.api.Play
 import play.api.Play.current
 
-object RaceParser{
+object CourseParser{
 
-  def readRace(filename:String):Race={
+  // Read a course from a kml (google maps) file
+  def readCourse(filename:String):Course={
     val data = XML.loadFile(Play.getFile(filename))
     val positions=(for {
       pos <- (data \\ "coordinates").text.split("\n")
@@ -23,8 +24,11 @@ object RaceParser{
     }
   }
 
+  // Compute the distance between two position
   private def distance(pos1:Position,pos2:Position):Double=
     acos(
-      sin(toRadians(pos1.latitude))*sin(toRadians(pos2.latitude))+cos(toRadians(pos1.latitude))*cos(toRadians(pos2.latitude))*cos(toRadians(pos1.longitude)-toRadians(pos2.longitude))
+      sin(toRadians(pos1.latitude)) * sin(toRadians(pos2.latitude))
+      + cos(toRadians(pos1.latitude)) * cos(toRadians(pos2.latitude)) * cos(toRadians(pos1.longitude)
+      - toRadians(pos2.longitude))
     ) * 6366
 }

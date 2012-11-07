@@ -2,11 +2,14 @@ package models
 
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
-import scala.util.Random
-import scala.collection.mutable.{ArrayBuffer,SynchronizedBuffer}
 import models.Race._
+import scala.util.Random
+import akka.pattern.ask
+import akka.util.duration._
+import akka.util.Timeout
 
 object Streams{
+    implicit val timeout = Timeout(5 seconds) 
 
     trait Event
 
@@ -14,49 +17,50 @@ object Streams{
     case class DistEvent(car:String,dist:Double) extends Event
     case class PositionEvent(car:String,latitude:Double,longitude:Double) extends Event
 
-    val position:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
-        Promise.timeout({
-            val car=race(randomCar)
-            val carPosition=car.log.head._1.position
-            Some(
-                PositionEvent(
-                    car.label,
-                    carPosition.latitude,
-                    carPosition.longitude
-                )
+    // Enumerator of position events of a random car
+    val position = Enumerator.fromCallback[Event] {()=>
+        for {
+            index <- Promise.timeout(randomCar,Random.nextInt(1000))
+            car <- (raceActor ? ("getCar",index)).mapTo[Option[Car]].asPromise
+        } yield car.map(car=>
+            PositionEvent(
+                car.label,
+                car.point.position.latitude,
+                car.point.position.longitude
             )
-        }, Random.nextInt(1000))
+        )
     }
 
-    val speed:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
-        Promise.timeout({
-            val car=race(randomCar)
-            Some(
-                SpeedEvent(
-                    car.label,
-                    randomInt(100,130)
-                )
+    // Enumerator of distance events of a random car
+    val distance = Enumerator.fromCallback[Event] {()=>
+        for {
+            index <- Promise.timeout(randomCar,Random.nextInt(1000))
+            car <- (raceActor ? ("getCar",index)).mapTo[Option[Car]].asPromise
+        } yield car.map(car=>
+            DistEvent(
+                car.label,
+                car.totalDist
             )
-        }, Random.nextInt(1000))
+        )
     }
 
-    val distance:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
-        Promise.timeout({
-            val car=race(randomCar)
-            Some(
-                DistEvent(
-                    car.label,
-                    car.totalDist
-                )
+    // For the moment, random values for speed
+    val speed = Enumerator.fromCallback[Event] {()=>
+        for {
+            index <- Promise.timeout(randomCar,Random.nextInt(1000))
+            car <- (raceActor ? ("getCar",index)).mapTo[Option[Car]].asPromise
+        } yield car.map(car=>
+            SpeedEvent(
+                car.label,
+                randomInt(100,180)
             )
-        }, Random.nextInt(1000))
+        )
     }
-
+     
+    // Interleave all enumerators   
     val events: Enumerator[Event] = position >- speed >- distance
 
-
-
-    private def randomInt(min:Int,max:Int)=min+Random.nextInt(max-min)
-    private def randomCar=cars(Random.nextInt(cars.size))
+    // Get a random int between from and to
+    private def randomInt(from:Int,to:Int)=from+Random.nextInt(to-from)
 
 }
