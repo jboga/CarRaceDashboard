@@ -3,11 +3,13 @@ package models
 import models.Race._
 import scala.math._
 import scala.xml._
+import play.api.Play
+import play.api.Play.current
 
 object RaceParser{
 
   def readRace(filename:String):Race={
-    val data = XML.loadFile(filename)
+    val data = XML.loadFile(Play.getFile(filename))
     val positions=(for {
       pos <- (data \\ "coordinates").text.split("\n")
       if (pos.trim.length>0)

@@ -14,56 +14,49 @@ object Streams{
     case class DistEvent(car:String,dist:Double) extends Event
     case class PositionEvent(car:String,latitude:Double,longitude:Double) extends Event
 
-    case class Car(label:String, checkpoint:Int=0, dist:Double=0){
-      def atCheckpoint(newPoint:CheckPoint)=copy(checkpoint=newPoint.id,dist=dist+newPoint.distFromPrevious)
-    }
-
-    val cars = new Array[Car](3)
-    cars(0)=Car("voiture 1")
-    cars(1)=Car("voiture 2")
-    cars(2)=Car("voiture 3")
-
-    val race:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
+    val position:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
         Promise.timeout({
-            val index=Random.nextInt(cars.size)
-            val car=cars(index)
-            Race.next(car.checkpoint) match {
-                case Some(checkpoint) =>
-                    cars.update(index,car.atCheckpoint(checkpoint))
-                    Some(
-                        PositionEvent(car.label,checkpoint.position.latitude,checkpoint.position.longitude)
-                    )
-                case None =>  
-                    None // finish
-            }
+            val car=race(randomCar)
+            val carPosition=car.log.head._1.position
+            Some(
+                PositionEvent(
+                    car.label,
+                    carPosition.latitude,
+                    carPosition.longitude
+                )
+            )
         }, Random.nextInt(1000))
     }
 
     val speed:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
-        Promise.timeout(
+        Promise.timeout({
+            val car=race(randomCar)
             Some(
                 SpeedEvent(
-                    cars(Random.nextInt(cars.size)).label,
-                    randomInt(100,130)
-                )
-            )
-            , Random.nextInt(1000))
-    }
-
-    val distance:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
-        Promise.timeout({
-            val car=cars(Random.nextInt(cars.size))
-            Some(
-                DistEvent(
                     car.label,
-                    car.dist
+                    randomInt(100,130)
                 )
             )
         }, Random.nextInt(1000))
     }
 
-    val events: Enumerator[Event] = race >- speed >- distance
+    val distance:Enumerator[Event] = Enumerator.fromCallback[Event] {()=>
+        Promise.timeout({
+            val car=race(randomCar)
+            Some(
+                DistEvent(
+                    car.label,
+                    car.totalDist
+                )
+            )
+        }, Random.nextInt(1000))
+    }
+
+    val events: Enumerator[Event] = position >- speed >- distance
+
+
 
     private def randomInt(min:Int,max:Int)=min+Random.nextInt(max-min)
+    private def randomCar=cars(Random.nextInt(cars.size))
 
 }
