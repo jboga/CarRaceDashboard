@@ -7,16 +7,18 @@ import akka.actor._
 import akka.util.duration._
 import models.CourseParser._
 
+/*
+  Represent a race and the states of cars.
+  Used to get some test datas.
+*/
 object Race {
 
     case class Position(latitude:Double,longitude:Double)
     case class CheckPoint(id:Int,position:Position,distFromPrevious:Double)    
-
     type Course = List[CheckPoint]
 
-    // Case class representing a Car at a specific point of the course
+    // Represent a Car at a specific point of the course
     case class Car(label:String,point:CheckPoint,totalDist:Double){
-
       def moveToCheckpoint(newPoint:CheckPoint)=
         copy(
           point = newPoint,
@@ -47,7 +49,6 @@ object Race {
 
     // Stream of the race. Each value is the list of all Car positions at time t
     val race:Stream[Vector[Car]]={
-
       def loop(prev:Vector[Car]):Stream[Vector[Car]]={
         val index=Random.nextInt(prev.size)
         val car=prev(index)
@@ -58,7 +59,6 @@ object Race {
           )
         )
       }
-
       loop(startingGrid)
     }
 
@@ -69,11 +69,9 @@ object Race {
       var currentState:Option[Vector[Car]]=None
 
       def receive = {
-
+        // Get current state, and schedule next run
         case "nextRun" =>
-          // Get current state
           currentState=Some(iterator.next)
-          // Schedule next run
           context.system.scheduler.scheduleOnce(Random.nextInt(2000) millisecond,self,"nextRun")
 
         // Get data about a specific car at time t

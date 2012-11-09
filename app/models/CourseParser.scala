@@ -6,6 +6,9 @@ import scala.xml._
 import play.api.Play
 import play.api.Play.current
 
+/*
+  A parser of 'kml' files to read a Course (list of CheckPoints)
+*/
 object CourseParser{
 
   // Read a course from a kml (google maps) file

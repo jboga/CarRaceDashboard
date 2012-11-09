@@ -8,6 +8,10 @@ import akka.pattern.ask
 import akka.util.duration._
 import akka.util.Timeout
 
+/*  
+    These streams is used to obtain test datas.
+    We can assume that in a real application, the `events` Enumerator is provided by external streaming service (like HTTP streaming)
+*/
 object Streams{
     implicit val timeout = Timeout(5 seconds) 
 
@@ -17,8 +21,10 @@ object Streams{
     case class DistEvent(car:String,dist:Double) extends Event
     case class PositionEvent(car:String,latitude:Double,longitude:Double) extends Event
 
+    lazy val events: Enumerator[Event] = position >- speed >- distance
+
     // Enumerator of position events of a random car
-    val position = Enumerator.fromCallback[Event] {()=>
+    private val position = Enumerator.fromCallback[Event] {()=>
         for {
             index <- Promise.timeout(randomCar,Random.nextInt(1000))
             car <- (raceActor ? ("getCar",index)).mapTo[Option[Car]].asPromise
@@ -32,7 +38,7 @@ object Streams{
     }
 
     // Enumerator of distance events of a random car
-    val distance = Enumerator.fromCallback[Event] {()=>
+    private val distance = Enumerator.fromCallback[Event] {()=>
         for {
             index <- Promise.timeout(randomCar,Random.nextInt(1000))
             car <- (raceActor ? ("getCar",index)).mapTo[Option[Car]].asPromise
@@ -45,7 +51,7 @@ object Streams{
     }
 
     // For the moment, random values for speed
-    val speed = Enumerator.fromCallback[Event] {()=>
+    private val speed = Enumerator.fromCallback[Event] {()=>
         for {
             index <- Promise.timeout(randomCar,Random.nextInt(1000))
             car <- (raceActor ? ("getCar",index)).mapTo[Option[Car]].asPromise
@@ -57,9 +63,6 @@ object Streams{
         )
     }
      
-    // Interleave all enumerators   
-    val events: Enumerator[Event] = position >- speed >- distance
-
     // Get a random int between from and to
     private def randomInt(from:Int,to:Int)=from+Random.nextInt(to-from)
 
