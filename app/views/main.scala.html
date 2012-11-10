@@ -1,0 +1,54 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href=" @routes.Assets.at("stylesheets/jquery-ui-1.8.24.custom.css") ">
+        <link rel="stylesheet" media="screen" href=" @routes.Assets.at("stylesheets/main.css") ">
+        <link rel="stylesheet" media="screen" href=" @routes.Assets.at("stylesheets/bootstrap.css") ">
+        <link rel="stylesheet" media="screen" href=" @routes.Assets.at("stylesheets/rickshaw.css") ">
+        <link rel="shortcut icon" type="image/png" href=" @routes.Assets.at("images/favicon.png") ">
+        <style type="text/css">
+            body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+            }
+            .sidebar-nav {
+            padding: 9px 0;
+            }
+        </style>
+        <script src=" @routes.Assets.at("javascripts/modernizr-2.6.1-respond-1.1.0.min.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/jquery-1.8.1.min.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/jquery-ui-1.8.24.custom.min.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/bootstrap.min.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/d3.v2.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/rickshaw.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/underscore-min.js") " type="text/javascript"></script>
+        <script src=" @routes.Assets.at("javascripts/backbone-min.js") " type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+
+                    <a class="brand" href="#">Car Race Dashboard</a>
+                    <div class="form-horizontal control-group">
+                        <div class="btn-group pull-right">
+                            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                                Select a car <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Car 1</a></li>
+                                <li><a href="#">Car 2</a></li>
+                                <li><a href="#">Car 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @content
+    </body>
+</html>

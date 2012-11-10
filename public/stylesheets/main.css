@@ -1,0 +1,5 @@
+div.navigator {
+    background-color: #5C6C80;
+    overflow: auto;
+    max-height: 70px;
+}

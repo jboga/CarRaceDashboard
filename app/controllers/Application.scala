@@ -24,7 +24,7 @@ object Application extends Controller {
 
 
   def index = Action {
-    Ok("TODO")
+    Ok(views.html.index())
   }
   
 }
