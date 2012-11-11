@@ -2,26 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3020ccac-c80b-4458-b356-d5fedb8933d6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/collection.AllCollections.coffee" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/models.FacetItem.coffee" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.FacetItem.coffee" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.FacetItemList.coffee" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.NonFacture.coffee" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.Production.coffee" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/models.Stats.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/models.Track.coffee" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/routes.AffaRouter.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.Stats.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/models.Track.coffee" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.Graph.coffee" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/LeMans.kml" afterPath="$PROJECT_DIR$/public/tracks/LeMans.kml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Race.kml" afterPath="$PROJECT_DIR$/public/tracks/Race.kml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Race.scala" afterPath="$PROJECT_DIR$/app/models/Race.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/index.scala.html" afterPath="$PROJECT_DIR$/app/views/index.scala.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/main.scala.html" afterPath="$PROJECT_DIR$/app/views/main.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CarRaceDashboard.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352631259594" ignored="false" />
-    <file path="/routes.RaceDashboardRouter.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352631190067" ignored="false" />
-    <file path="/views.Track.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352631110495" ignored="false" />
+    <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352670624063" ignored="false" />
+    <file path="/views.RTData.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352670410413" ignored="false" />
+    <file path="/routes.RaceDashboardRouter.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352668135187" ignored="false" />
+    <file path="/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352667843177" ignored="false" />
+    <file path="/Race.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352666765275" ignored="false" />
+    <file path="/views.Track.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352666510284" ignored="false" />
     <file path="/models.Stats.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352630483184" ignored="false" />
-    <file path="/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352617686464" ignored="false" />
     <file path="/Application.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352563548983" ignored="false" />
     <file path="$PROJECT_DIR$/../Affa-Dashboard/app/views/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352563247822" ignored="false" />
     <file path="$PROJECT_DIR$/../Affa-Dashboard/app/assets/javascripts/views.Graph.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352563247822" ignored="false" />
@@ -90,34 +91,46 @@
       <file leaf-file-name="index.scala.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="82" selection-start="941" selection-end="941" vertical-scroll-proportion="-19.0">
-              <folding />
+            <state line="15" column="0" selection-start="512" selection-end="512" vertical-scroll-proportion="-11.4">
+              <folding>
+                <element signature="e#248#280#0" expanded="true" />
+                <element signature="e#474#510#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.Track.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/models.Track.coffee">
+      <file leaf-file-name="routes" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/routes">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="1723" selection-end="1723" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.Track.coffee" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Race.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="10" selection-start="1146" selection-end="1146" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.Track.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="19" selection-start="293" selection-end="293" vertical-scroll-proportion="0.2782956">
+            <state line="8" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="LeMans.kml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LeMans.kml">
+        <entry file="file://$PROJECT_DIR$/public/tracks/LeMans.kml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="20" selection-start="1669" selection-end="1669" vertical-scroll-proportion="0.0">
+            <state line="38" column="20" selection-start="1201" selection-end="1201" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -126,16 +139,7 @@
       <file leaf-file-name="routes.RaceDashboardRouter.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="71" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.Graph.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Graph.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="4" column="44" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -150,10 +154,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="views.RTData.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="33" selection-start="541" selection-end="541" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jgauge-0.3.0.a3.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/jgauge-0.3.0.a3.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="140" column="29" selection-start="5073" selection-end="5073" vertical-scroll-proportion="0.28319782">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="main.scala.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/main.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="1497" selection-end="1497" vertical-scroll-proportion="-20.52">
+            <state line="13" column="82" selection-start="737" selection-end="737" vertical-scroll-proportion="-6.84">
               <folding />
             </state>
           </provider>
@@ -178,12 +202,16 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/app/controllers/Application.scala" />
-        <option value="$PROJECT_DIR$/app/views/main.scala.html" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/models.Stats.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/models.Track.coffee" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
-        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
+        <option value="$PROJECT_DIR$/public/tracks/cta.kml" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee" />
+        <option value="$PROJECT_DIR$/app/models/Race.scala" />
+        <option value="$PROJECT_DIR$/app/views/main.scala.html" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
+        <option value="$PROJECT_DIR$/public/javascripts/jgauge-0.3.0.a3.js" />
+        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
       </list>
     </option>
   </component>
@@ -250,6 +278,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tracks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarRaceDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarRaceDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="stylesheets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -269,6 +315,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarRaceDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarRaceDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -386,6 +450,14 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/assets/javascripts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/tracks" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -583,30 +655,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/ApplicationSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="6" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/IntegrationSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="6" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/CourseParser.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="7" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="7" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -618,13 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/Application.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="25" selection-start="548" selection-end="548" vertical-scroll-proportion="0.0">
@@ -632,16 +676,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Graph.coffee">
+    <entry file="file://$PROJECT_DIR$/public/tracks/Race.kml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/main.scala.html">
+    <entry file="file://$PROJECT_DIR$/public/tracks/LeMans.kml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="1497" selection-end="1497" vertical-scroll-proportion="-20.52">
+        <state line="38" column="20" selection-start="1201" selection-end="1201" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="10" selection-start="1146" selection-end="1146" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -653,38 +704,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/main.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="82" selection-start="737" selection-end="737" vertical-scroll-proportion="-6.84">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="71" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
+        <state line="4" column="44" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/img/jgauge_needle_taco.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/img/jgauge_face_taco.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="82" selection-start="941" selection-end="941" vertical-scroll-proportion="-19.0">
+        <state line="15" column="0" selection-start="512" selection-end="512" vertical-scroll-proportion="-11.4">
+          <folding>
+            <element signature="e#248#280#0" expanded="true" />
+            <element signature="e#474#510#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="33" selection-start="541" selection-end="541" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LeMans.kml">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/jgauge-0.3.0.a3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="20" selection-start="1669" selection-end="1669" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/models.Track.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="1723" selection-end="1723" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="19" selection-start="293" selection-end="293" vertical-scroll-proportion="0.2782956">
-          <folding />
+        <state line="140" column="29" selection-start="5073" selection-end="5073" vertical-scroll-proportion="0.28319782">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

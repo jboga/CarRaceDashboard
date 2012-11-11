@@ -39,9 +39,9 @@ object Race {
 
     // List of concurrents
     private val cars = Vector(
-      "voiture 1",
-      "voiture 2",
-      "voiture 3"
+      "Car 1",
+      "Car 2",
+      "Car 3"
     )
 
     // Starting grid : all cars at first checkpoint
