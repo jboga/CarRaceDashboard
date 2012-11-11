@@ -1,8 +1,7 @@
-class AffaRouter extends Backbone.Router
+class RaceDashboardRouter extends Backbone.Router
 
   initialize: ()->
-    @productionView = new app.views.ProductionView()
-    @nonFactureView = new app.views.NonFactureView()
+    @trackView = new app.views.TrackView({model: new app.models.Track()})
 
   routes:
     "": "index"
@@ -14,7 +13,7 @@ class AffaRouter extends Backbone.Router
 
 window.app=window.app || {}
 window.app.routers=window.app.routers || {}
-window.app.routers.AffaRouter=new AffaRouter()
+window.app.routers.RaceDashboardRouter=new RaceDashboardRouter()
 
 $ ->
   Backbone.history.start
