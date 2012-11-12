@@ -37,9 +37,10 @@ class RTDataView extends Backbone.View
       value: dist
       wobbleFactor: 0.07
     })
+
     @model.on('change', @updateRTData)
 
-  updateRTData: ()->
+  updateRTData: ()=>
     @speedGauge.setValue(@model.get('speed'))
     @odo.set(@model.get('distance'))
 
