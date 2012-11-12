@@ -2,7 +2,7 @@ class RaceDashboardRouter extends Backbone.Router
 
   initialize: ()->
     @trackView = new app.views.TrackView()
-    @rtDataView = new app.views.RTDataView()
+    @rtDataView = new app.views.RTDataView(model: new app.models.Car({speed: 0, distance: 0, lap: 0}))
 
   routes:
     "": "index"
