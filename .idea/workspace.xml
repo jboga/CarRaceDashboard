@@ -3,32 +3,31 @@
   <component name="ChangeListManager">
     <list default="true" id="3020ccac-c80b-4458-b356-d5fedb8933d6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Application.scala" afterPath="$PROJECT_DIR$/app/controllers/Application.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Global.scala" afterPath="$PROJECT_DIR$/app/Global.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Storage.scala" afterPath="$PROJECT_DIR$/app/models/Storage.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Streams.scala" afterPath="$PROJECT_DIR$/app/models/Streams.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/index.scala.html" afterPath="$PROJECT_DIR$/app/views/index.scala.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/models.Car.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/models.Car.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/routes" afterPath="$PROJECT_DIR$/conf/routes" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CarRaceDashboard.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Storage.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352758277948" ignored="false" />
-    <file path="/Application.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352757585998" ignored="false" />
-    <file path="/Global.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352755805057" ignored="false" />
-    <file path="/Streams.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352753759057" ignored="false" />
-    <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352752072501" ignored="false" />
-    <file path="/routes" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352751986602" ignored="false" />
-    <file path="/Dummy.txt" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352744282332" ignored="false" />
-    <file path="/models.Car.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352697049109" ignored="false" />
-    <file path="/routes.RaceDashboardRouter.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352696819129" ignored="false" />
-    <file path="/views.RTData.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352696731210" ignored="false" />
-    <file path="/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352693505098" ignored="false" />
-    <file path="/Race.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352666765275" ignored="false" />
-    <file path="/views.Track.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352666510284" ignored="false" />
-    <file path="/models.Stats.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352630483184" ignored="false" />
-    <file path="$PROJECT_DIR$/../Affa-Dashboard/app/views/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352563247822" ignored="false" />
+    <file path="/views.RTData.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352761262324" ignored="false" />
+    <file path="/routes.RaceDashboardRouter.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352760962633" ignored="false" />
+    <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352760278078" ignored="false" />
+    <file path="/Storage.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352759560123" ignored="false" />
+    <file path="/Global.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352759394402" ignored="false" />
+    <file path="/Dummy.txt" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352758911166" ignored="false" />
     <file path="$PROJECT_DIR$/../Affa-Dashboard/app/assets/javascripts/views.Graph.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352563247822" ignored="false" />
+    <file path="$PROJECT_DIR$/../Affa-Dashboard/app/views/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352563247822" ignored="false" />
+    <file path="/models.Stats.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352630483184" ignored="false" />
+    <file path="/views.Track.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352666510284" ignored="false" />
+    <file path="/Race.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352666765275" ignored="false" />
+    <file path="/main.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352693505098" ignored="false" />
+    <file path="/models.Car.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352697049109" ignored="false" />
+    <file path="/routes" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352751986602" ignored="false" />
+    <file path="/Streams.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352753759057" ignored="false" />
+    <file path="/Application.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352757585998" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,8 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
         <option name="NOTIFY_UNCAUGHT" value="true" />
@@ -80,6 +80,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -90,12 +91,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Storage.scala" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Storage.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/Storage.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="44" selection-start="234" selection-end="234" vertical-scroll-proportion="0.1704394">
+            <state line="18" column="0" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#16#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Global.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Global.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="7" selection-start="147" selection-end="147" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#67#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,10 +116,19 @@
       <file leaf-file-name="Application.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/Application.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="29" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0">
+            <state line="66" column="0" selection-start="1779" selection-end="1779" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#21#48#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.scala.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="0" selection-start="253" selection-end="253" vertical-scroll-proportion="-5.32">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,28 +142,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.RTData.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="19" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.Track.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="routes.RaceDashboardRouter.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="91" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
+            <state line="21" column="0" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.RTData.coffee" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="26" selection-start="1410" selection-end="1410" vertical-scroll-proportion="0.74767596">
               <folding />
             </state>
           </provider>
@@ -169,19 +181,8 @@
       <file leaf-file-name="Race.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="0" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.0">
+            <state line="48" column="0" selection-start="1345" selection-end="1345" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Streams.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/Streams.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="19" selection-start="1601" selection-end="1601" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#16#47#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -211,15 +212,15 @@
         <option value="$PROJECT_DIR$/app/models/Race.scala" />
         <option value="$PROJECT_DIR$/public/javascripts/jgauge-0.3.0.a3.js" />
         <option value="$PROJECT_DIR$/app/views/main.scala.html" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
         <option value="$PROJECT_DIR$/conf/routes" />
-        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
         <option value="$PROJECT_DIR$/app/models/Streams.scala" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/models.Car.coffee" />
         <option value="$PROJECT_DIR$/app/Global.scala" />
-        <option value="$PROJECT_DIR$/app/controllers/Application.scala" />
         <option value="$PROJECT_DIR$/app/models/Storage.scala" />
+        <option value="$PROJECT_DIR$/app/controllers/Application.scala" />
+        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
       </list>
     </option>
   </component>
@@ -253,7 +254,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -385,6 +386,20 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarRaceDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarRaceDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -450,7 +465,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -478,6 +493,14 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
     <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <extension name="scalaCoverage" />
@@ -493,12 +516,17 @@
       <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -529,19 +557,6 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -555,13 +570,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -585,6 +593,13 @@
       <patterns />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <list size="0" />
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -594,6 +609,7 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="3020ccac-c80b-4458-b356-d5fedb8933d6" name="Default" comment="" />
       <created>1352556836930</created>
       <updated>1352556836930</updated>
     </task>
@@ -603,29 +619,29 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.6708229" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -703,17 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="9" selection-start="457" selection-end="457" vertical-scroll-proportion="-6.84">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/routes">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="54" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0">
@@ -723,16 +728,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Streams.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="19" selection-start="1601" selection-end="1601" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#16#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="19" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0">
+        <state line="51" column="19" selection-start="1567" selection-end="1567" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -740,13 +736,6 @@
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="91" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -760,7 +749,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.0">
+        <state line="48" column="0" selection-start="1345" selection-end="1345" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -779,21 +768,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Application.scala">
+    <entry file="file://$PROJECT_DIR$/app/Global.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="29" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0">
+        <state line="5" column="7" selection-start="147" selection-end="147" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#21#48#0" expanded="true" />
+            <element signature="e#0#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Storage.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="44" selection-start="234" selection-end="234" vertical-scroll-proportion="0.1704394">
+        <state line="18" column="0" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#16#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Application.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="0" selection-start="1779" selection-end="1779" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#21#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="253" selection-end="253" vertical-scroll-proportion="-5.32">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="26" selection-start="1410" selection-end="1410" vertical-scroll-proportion="0.74767596">
+          <folding />
         </state>
       </provider>
     </entry>

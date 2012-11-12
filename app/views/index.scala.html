@@ -5,9 +5,8 @@
         var source = new EventSource("@routes.Application.rtEventSourceStream");
         console.log("EventSource created");
         source.onmessage = function (event) {
-            // Fire "cours-changed" event on the application controller
-            // controller.trigger("cours-changed",JSON.parse(event.data));
-            console.log(JSON.parse(event.data))
+            window.app.routers.RaceDashboardRouter.trigger("rtevent", JSON.parse(event.data));
+            //console.log(JSON.parse(event.data))
         };
     </script>
 

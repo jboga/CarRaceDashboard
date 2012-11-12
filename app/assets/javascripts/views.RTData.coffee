@@ -29,8 +29,8 @@ class RTDataView extends Backbone.View
     speed = @model.get('speed')
     @speedGauge.setValue(speed)
     dist = @model.get('distance')
-    ctx = $('#distance')[0].getContext('2d')
-    @odo = new odometer(ctx, {
+    @ctx = $('#distance')[0].getContext('2d')
+    @odo = new odometer(@ctx, {
       height: 40
       digits: 5
       decimals: 1
@@ -42,7 +42,13 @@ class RTDataView extends Backbone.View
 
   updateRTData: ()=>
     @speedGauge.setValue(@model.get('speed'))
-    @odo.set(@model.get('distance'))
+    @odo.setValue(@model.get('distance'))
+
+  updateRTEvent: (event)=>
+    if event.type is "speed"
+      @speedGauge.setValue(event.speed)
+    if event.type is "dist"
+      @odo.setValue(event.dist)
 
 window.app = window.app || {}
 window.app.views = window.app.views || {}

@@ -64,7 +64,6 @@ class RTEventListener extends Actor{
       Akka.system.eventStream.subscribe(self,classOf[Event])
       sender ! channel
     case change:Event =>
-      Logger.debug("event received")
       channel.push(toJson(change)) // Push jsonified event
   }
 }
