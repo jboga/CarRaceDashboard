@@ -32,7 +32,7 @@ object Race {
     }
 
     // Load course from kml (list of checkpoints)
-    private lazy val course:Course = readCourse("LeMans.kml")
+    private lazy val course:Course = readCourse("public/tracks/LeMans.kml")
 
     // Get next checkpoint, based on course
     private def next(point:CheckPoint)=
