@@ -15,6 +15,7 @@ object Storage{
     def receive = {
       case e:Event => 
         logger.debug("Received event "+e)
+        context.system.eventStream.publish(e)
         connection("events").insert(  e match {
             case SpeedEvent(car,speed) =>
               MongoDBObject (
@@ -39,8 +40,6 @@ object Storage{
         )
     }
 
-  }))
-
-
+  }), name = "storage")
 
 }
