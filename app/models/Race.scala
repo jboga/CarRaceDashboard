@@ -8,7 +8,7 @@ import akka.util.duration._
 import models.CourseParser._
 
 /*
-  Represent a race and the states of cars.
+  Represent a race, and states of cars.
   Used to get some test datas.
 */
 object Race {
@@ -18,13 +18,17 @@ object Race {
     type Course = List[CheckPoint]
 
     // Represent a Car at a specific point of the course
-    case class Car(label:String,point:CheckPoint,totalDist:Double){
-      def moveToCheckpoint(newPoint:CheckPoint)=
+    case class Car(label:String,point:CheckPoint,speed:Double,totalDist:Double, time:Long){
+      def moveToCheckpoint(newPoint:CheckPoint)={
+        val t = System.currentTimeMillis - time
+        val v = 3600000 * newPoint.distFromPrevious / t
         copy(
           point = newPoint,
-          totalDist = totalDist + newPoint.distFromPrevious
+          totalDist = totalDist + newPoint.distFromPrevious,
+          time = time + t,
+          speed = v
         )
-
+      }
     }
 
     // Load course from kml (list of checkpoints)
@@ -33,54 +37,65 @@ object Race {
     // Get next checkpoint, based on course
     private def next(point:CheckPoint)=
       if (point.id+1>=course.size)
-        course(0) // new lap
+        course.head // new lap
       else
         course(point.id+1)
 
     // List of concurrents
-    private val cars = Vector(
+    private val cars = List(
       "voiture 1",
       "voiture 2",
       "voiture 3"
     )
 
-    // Starting grid : all cars at first checkpoint
-    private lazy val startingGrid = cars.map(Car(_,course(0),0))
-
-    // Stream of the race. Each value is the list of all Car positions at time t
-    val race:Stream[Vector[Car]]={
-      def loop(prev:Vector[Car]):Stream[Vector[Car]]={
-        val index=Random.nextInt(prev.size)
-        val car=prev(index)
+    // "Race" stream for a car. Each value is a state of the car `car` at a time t of the race.
+    def stream(car:Car):Stream[Car]={
+      def loop(prev:Car):Stream[Car]=
         prev #:: loop(
-          prev.updated(
-            index,
-            car.moveToCheckpoint(next(car.point))
-          )
+          prev.moveToCheckpoint(next(prev.point))
         )
-      }
-      loop(startingGrid)
+      loop(car)
     }
 
-    // Actor which iterate from the stream
-    val raceActor =  ActorSystem("RaceSystem").actorOf(Props(new Actor {
+    // Random schedule next move to checkpoint, according to min and max values for speed
+    def scheduleNextMove(nextPoint:CheckPoint, vMin:Int, vMax:Int)=
+      (nextPoint.distFromPrevious/randomInt(vMin,vMax)) * 3600
 
-      val iterator=race.iterator
-      var currentState:Option[Vector[Car]]=None
+    val system=ActorSystem("RaceSystem")
+
+    // An actor which moves a Car on the course, based on the stream
+    class CarActor(carLabel:String) extends Actor{
+
+      private lazy val iterator=stream(Car(carLabel,course.head,0,0,System.currentTimeMillis)).iterator
+      private var state:Car=null
 
       def receive = {
-        // Get current state, and schedule next run
-        case "nextRun" =>
-          currentState=Some(iterator.next)
-          context.system.scheduler.scheduleOnce(Random.nextInt(2000) millisecond,self,"nextRun")
+        case "start" =>
+          state=iterator.next
+          context.system.scheduler.scheduleOnce(scheduleNextMove(next(state.point),50,100) seconds,self,"move")
 
-        // Get data about a specific car at time t
-        case ("getCar",car:Int) =>
-          sender ! currentState.map(state=>Some(state(car))).getOrElse(None)
+        case "move" =>
+          state=iterator.next
+          context.system.scheduler.scheduleOnce(scheduleNextMove(next(state.point),80,180) seconds,self,"move")
+
+        case "getState" => sender ! state
+      }
+    }
+
+    // An actor which represent the race, with a BroadcastRouter to fire "start" event on all cars.
+    val carActors=cars.map(car=>system.actorOf(Props(new CarActor(car))))
+
+    val raceActor=system.actorOf(Props(new Actor{
+
+      val router=context.actorOf(Props[CarActor].withRouter(akka.routing.BroadcastRouter(carActors)))
+            
+      def receive = {
+        case "start" => router ! "start"
       }
     }))
 
-    // Get a random car index in the vector
-    def randomCar=Random.nextInt(cars.size)
+    // Get a random int between from and to
+    def randomInt(from:Int,to:Int) = from + Random.nextInt(to-from)
+   
 
 }
