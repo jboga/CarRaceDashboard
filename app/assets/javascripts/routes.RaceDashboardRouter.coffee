@@ -5,6 +5,7 @@ class RaceDashboardRouter extends Backbone.Router
     car1 = new app.models.Car({name: "Car 1", speed: 0, dist: 0, lap: 0})
     @cars.add(car1)
     @trackView = new app.views.TrackView(model: @cars)
+    @carSel = new app.views.TrackSelectorView(model: @cars)
     @rtDataView = new app.views.RTDataView(model: car1)
     @bind("rtevent", @newEvent, @)
 
@@ -22,7 +23,7 @@ class RaceDashboardRouter extends Backbone.Router
     else
       newCar = new app.models.Car({name: event.car, speed: 0, dist: 0, lap: 0})
       newCar.set(event.type, event.value)
-      @cars.add(newCar, silent: true)
+      @cars.add(newCar)
 
 
 window.app=window.app || {}

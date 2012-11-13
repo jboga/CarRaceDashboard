@@ -2,13 +2,29 @@
 
 @main("Welcome to Car Race Dashboard") {
     <script type="text/javascript">
-        var source = new EventSource("@routes.Application.rtEventSourceStream");
-        console.log("EventSource created");
-        source.onmessage = function (event) {
-            window.app.routers.RaceDashboardRouter.trigger("rtevent", JSON.parse(event.data));
-            //console.log(JSON.parse(event.data))
-        };
-    </script>
+    var source = new EventSource(" @routes.Application.rtEventSourceStream ");
+    console.log("EventSource created");
+    source.onmessage = function (event) {
+    window.app.routers.RaceDashboardRouter.trigger("rtevent", JSON.parse(event.data));
+} ;
+</script>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="#">Car Race Dashboard</a>
+            <div class="form-horizontal control-group">
+                <div class="btn-group pull-right">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        Select a car <span class="caret"></span>
+                    </button>
+                    <ul id="carSel" class="dropdown-menu">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
 <!-- Example row of columns -->
@@ -20,11 +36,17 @@
         <div class="well span4">
             <h2>Real Time data</h2>
             <div id="rtdata" style="width:100%; height:350px">
-                <div class="row-fluid">
-                    <div id="speedGauge" class="jgauge"></div>
+                <div class="span7">
+                    <div class="row-fluid">
+                        <div id="speedGauge" class="jgauge" style="margin-left: 0px;"></div>
+                    </div>
+                    <div class="row-fluid">
+                        <canvas id="distance" style="margin-left: 0px; width:160px; height:35px">No canvas support!</canvas>
+                    </div>
                 </div>
-                <div class="row-fluid">
-                    <canvas id="distance" style="margin-left: 30px; width:160px; height:35px">No canvas support!</canvas>
+                <div class="span5" style="margin-top: 30px;">
+                    <h3 style="margin-left: 35px;">Lap</h3>
+                    <div id="lapCounter"></div>
                 </div>
             </div>
         </div>
@@ -40,5 +62,6 @@
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/models.Car.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.Track.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.RTData.js") "></script>
+    <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.TrackSelector.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/routes.RaceDashboardRouter.js") "></script>
     }

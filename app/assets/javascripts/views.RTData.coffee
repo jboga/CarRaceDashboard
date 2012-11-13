@@ -28,7 +28,7 @@ class RTDataView extends Backbone.View
     @speedGauge.init()
     speed = @model.get('speed')
     @speedGauge.setValue(speed)
-    dist = @model.get('distance')
+    dist = @model.get('dist')
     @ctx = $('#distance')[0].getContext('2d')
     @odo = new odometer(@ctx, {
       height: 40
@@ -37,12 +37,16 @@ class RTDataView extends Backbone.View
       value: dist
       wobbleFactor: 0.07
     })
+    @lapCounter = new flipCounter('lapCounter', {value: 01})
+    @lapDistance = 13
 
     @model.on('change', @updateRTData)
 
   updateRTData: ()=>
     @speedGauge.setValue(@model.get('speed'))
     @odo.setValue(@model.get('dist'))
+    lap = Math.floor(1 + @model.get('dist') / @lapDistance)
+    @lapCounter.setValue(lap)
 
   updateRTEvent: (event)=>
     @model.set(event.type, event.value)

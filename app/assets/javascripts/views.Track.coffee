@@ -23,9 +23,14 @@ class TrackView extends Backbone.View
     if theMarker
       theMarker.setPosition(carPos)
     else
-      marker = new google.maps.Marker({map: @theMap, position: carPos, title: car.get('name')})
+      markerOptions = {
+        map: @theMap
+        icon: '/assets/images/map-icons/' + car.get('name') + '.png'
+        position: carPos
+        title: car.get('name')
+      }
+      marker = new google.maps.Marker(markerOptions)
       car.set('marker', marker)
-    console.log(car)
 
 
 window.app = window.app || {}
