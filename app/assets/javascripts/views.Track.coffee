@@ -13,22 +13,19 @@ class TrackView extends Backbone.View
     kmlFile = "http://www.comintech.net/kml/LeMans.kml"
     @trackLayer = new google.maps.KmlLayer(kmlFile)
     @trackLayer.setMap(@theMap)
-    @markers = new Backbone.Collection()
     @model.on('change:pos', @updatePos)
 
 
   updatePos: (car)=>
-    theMarker = _.find(@markers.models, (m)-> m.attributes.getTitle() is car.get('name'))
+    theMarker = car.get('marker')
     pos = car.get('pos')
     carPos = new google.maps.LatLng(pos.latitude, pos.longitude)
     if theMarker
-      theMarker.attributes.setPosition(carPos)
+      theMarker.setPosition(carPos)
     else
       marker = new google.maps.Marker({map: @theMap, position: carPos, title: car.get('name')})
-      @markers.add(marker)
+      car.set('marker', marker)
     console.log(car)
-
-
 
 
 window.app = window.app || {}

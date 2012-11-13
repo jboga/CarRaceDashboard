@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3020ccac-c80b-4458-b356-d5fedb8933d6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Streams.scala" afterPath="$PROJECT_DIR$/app/models/Streams.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee" />
     </list>
     <ignored path="CarRaceDashboard.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/views.Track.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352790950129" ignored="false" />
+    <file path="/views.Track.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352796637272" ignored="false" />
     <file path="/Streams.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352789664708" ignored="false" />
     <file path="/routes.RaceDashboardRouter.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352789303476" ignored="false" />
     <file path="/views.RTData.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352783381858" ignored="false" />
@@ -151,7 +148,7 @@
       <file leaf-file-name="views.Track.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="17" selection-start="920" selection-end="920" vertical-scroll-proportion="0.6812749">
+            <state line="23" column="15" selection-start="669" selection-end="669" vertical-scroll-proportion="0.5803453">
               <folding />
             </state>
           </provider>
@@ -808,7 +805,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/views.Track.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="17" selection-start="920" selection-end="920" vertical-scroll-proportion="0.6812749">
+        <state line="23" column="15" selection-start="669" selection-end="669" vertical-scroll-proportion="0.5803453">
           <folding />
         </state>
       </provider>
