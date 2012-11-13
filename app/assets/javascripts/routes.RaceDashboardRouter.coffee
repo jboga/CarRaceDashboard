@@ -1,8 +1,11 @@
 class RaceDashboardRouter extends Backbone.Router
 
   initialize: ()->
-    @trackView = new app.views.TrackView()
-    @rtDataView = new app.views.RTDataView(model: new app.models.Car({speed: 0, distance: 0, lap: 0}))
+    @cars = new Backbone.Collection()
+    car1 = new app.models.Car({name: "Car 1", speed: 0, dist: 0, lap: 0})
+    @cars.add(car1)
+    @trackView = new app.views.TrackView(model: @cars)
+    @rtDataView = new app.views.RTDataView(model: car1)
     @bind("rtevent", @newEvent, @)
 
   routes:
@@ -13,7 +16,13 @@ class RaceDashboardRouter extends Backbone.Router
 #    @collListView.addAll()
 
   newEvent: (event)->
-    @rtDataView.updateRTEvent(event)
+    car = _.find(@cars.models,(each)-> event.car is each.get('name'))
+    if car
+      car.set(event.type, event.value)
+    else
+      newCar = new app.models.Car({name: event.car, speed: 0, dist: 0, lap: 0})
+      newCar.set(event.type, event.value)
+      @cars.add(newCar, silent: true)
 
 
 window.app=window.app || {}

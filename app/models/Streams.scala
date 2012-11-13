@@ -24,10 +24,10 @@ object Streams {
       val car = (json \ "car").as[String]
       eventType match {
         case "speed" =>
-          val speed = (json \ "speed").as[Int]
+          val speed = (json \ "value").as[Int]
           SpeedEvent(car, speed)
         case "dist" =>
-          val dist = (json \ "type").as[Double]
+          val dist = (json \ "value").as[Double]
           DistEvent(car, dist)
         case "pos" =>
           val longitude = (json \ "long").as[Double]
@@ -41,20 +41,23 @@ object Streams {
         JsObject(List(
           "type" -> JsString("speed"),
           "car" -> JsString(car),
-          "speed" -> JsNumber(speed)
+          "value" -> JsNumber(speed)
         ))
       case DistEvent(car, dist) =>
         JsObject(List(
           "type" -> JsString("dist"),
           "car" -> JsString(car),
-          "dist" -> JsNumber(dist)
+          "value" -> JsNumber(dist)
         ))
       case PositionEvent(car, latitude, longitude) =>
         JsObject(List(
           "type" -> JsString("pos"),
           "car" -> JsString(car),
-          "lat" -> JsNumber(latitude),
-          "long" -> JsNumber(longitude)
+          "value" -> JsObject(List(
+            "latitude" -> JsNumber(latitude),
+            "longitude" -> JsNumber(longitude)
+            )
+          )
         ))
     }
   }

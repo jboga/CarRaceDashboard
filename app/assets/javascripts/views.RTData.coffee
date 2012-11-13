@@ -42,13 +42,11 @@ class RTDataView extends Backbone.View
 
   updateRTData: ()=>
     @speedGauge.setValue(@model.get('speed'))
-    @odo.setValue(@model.get('distance'))
+    @odo.setValue(@model.get('dist'))
 
   updateRTEvent: (event)=>
-    if event.type is "speed"
-      @speedGauge.setValue(event.speed)
-    if event.type is "dist"
-      @odo.setValue(event.dist)
+    @model.set(event.type, event.value)
+
 
 window.app = window.app || {}
 window.app.views = window.app.views || {}
