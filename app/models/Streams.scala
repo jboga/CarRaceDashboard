@@ -63,7 +63,7 @@ object Streams {
         JsObject(List(
             "type" -> JsString(statType),
             "car" -> JsString(car),
-            "value" -> JsNumber(speed)
+            "value" -> JsNumber(speed.toInt)
         ))
       case RankingEvent(car, position) =>
         JsObject(List(
