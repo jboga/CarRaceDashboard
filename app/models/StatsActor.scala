@@ -7,76 +7,71 @@ import play.api.libs.concurrent.Akka
 import play.api.Play.current
 import play.api.Logger
 import akka.util.duration._
+import models.Streams._
 
 object StatsActor{
-
-  case class SpeedStatEvent(statType:String, value:Double)
 
   private val logger = Logger("actor-stats")
 
   val actor =  Akka.system.actorOf(Props(new Actor {
-    
+
     def receive = {
 
-      case "speedMean"=>
-        aggregateOne[Double]("mean") {
-          MongoDBList(
-            MongoDBObject(
-              "$group" -> MongoDBObject(
-                "_id" -> "$type",
-                "mean" -> MongoDBObject("$avg"->"$speed")
-              )
-            ),
-            MongoDBObject(
-              "$match" -> MongoDBObject("_id" -> "speed")
-            )
-          )
-        }.map(value=>SpeedStatEvent("mean",value)) match {
-          case Some(event) =>
-            logger.debug("New stat : "+event)
-            Akka.system.eventStream.publish(event)
-          case _ =>
+      case "meanSpeed"=>
+        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", mean: {$avg: "$speed"}}}]
+        aggregateSpeed[Double](MongoDBObject("$avg"->"$speed")) match {
+          case Some(carsWithAvg) =>
+            carsWithAvg
+              .map((value)=>StatSpeedEvent("meanSpeed",value._1,value._2))
+              .foreach{event=>
+                logger.debug("New stat : "+event)
+                Akka.system.eventStream.publish(event)
+              }
+          case None =>
         }
-        context.system.scheduler.scheduleOnce(5 seconds,self,"speedMean")
+        context.system.scheduler.scheduleOnce(5 seconds,self,"meanSpeed")
 
-      case "speedMax"=>
-        aggregateOne[Int]("max") {
-          MongoDBList(
-            MongoDBObject(
-              "$group" -> MongoDBObject(
-                "_id" -> "$type",
-                "max" -> MongoDBObject("$max"->"$speed")
-              )
-            ),
-            MongoDBObject(
-              "$match" -> MongoDBObject("_id" -> "speed")
-            )
-          )
-        }.map(value=>SpeedStatEvent("max",value)) match {
-          case Some(event) =>
-            logger.debug("New stat : "+event)
-            Akka.system.eventStream.publish(event)
-          case _ =>
+      case "maxSpeed"=>
+        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", mean: {$max: "$speed"}}}]
+        aggregateSpeed[Int](MongoDBObject("$max"->"$speed")) match {
+          case Some(carsWithAvg) =>
+            carsWithAvg
+              .map((value)=>StatSpeedEvent("maxSpeed",value._1,value._2))
+              .foreach{event=>
+                logger.debug("New stat : "+event)
+                Akka.system.eventStream.publish(event)
+              }
+          case None =>
         }
-        context.system.scheduler.scheduleOnce(5 seconds,self,"speedMax")
+        context.system.scheduler.scheduleOnce(5 seconds,self,"maxSpeed")
 
       case "start" =>
-        self ! "speedMean"
-        self ! "speedMax"
+        self ! "meanSpeed"
+        self ! "maxSpeed"
     }
 
 
     import scala.reflect.Manifest
-    private def aggregateOne[T: Manifest](key:String)(pipeline: MongoDBList):Option[T]=
+    private def aggregateSpeed[T: Manifest](value: MongoDBObject):Option[Seq[(String,T)]]=
       connection.command(
         MongoDBObject(
           "aggregate"->"events",
-          "pipeline" -> pipeline
+          "pipeline" -> MongoDBList(
+            MongoDBObject(
+              "$match" -> MongoDBObject("type" -> "speed")
+            ),
+            MongoDBObject(
+              "$group" -> MongoDBObject(
+                "_id" -> "$car",
+                "value" -> value
+              )
+            )
+          )
         )
       ).get("result") match {
-          case result:BasicDBList if result.size > 0 =>
-            result.head.asInstanceOf[BasicDBObject].getAs[T](key)
-          case _ => 
+          case result:BasicDBList =>
+            Some(result.map(_.asInstanceOf[BasicDBObject]).map(v=>(v.getAs[String]("_id").get,v.getAs[T]("value").get)))
+          case c => 
             None
         }
     }))

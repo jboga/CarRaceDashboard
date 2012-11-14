@@ -59,14 +59,25 @@ object Streams {
             )
           )
         ))
+      case StatSpeedEvent(statType, car, speed) =>
+        JsObject(List(
+            "type" -> JsString("stat"),
+            "stat" -> JsString(statType),
+            "car" -> JsString(car),
+            "value" -> JsNumber(speed)
+        ))
     }
   }
 
   trait Event
 
-  case class SpeedEvent(car: String, speed: Int) extends Event
-  case class DistEvent(car: String, dist: Double) extends Event
-  case class PositionEvent(car: String, latitude: Double, longitude: Double) extends Event
+  trait RTEvent extends Event
+  case class SpeedEvent(car: String, speed: Int) extends RTEvent
+  case class DistEvent(car: String, dist: Double) extends RTEvent
+  case class PositionEvent(car: String, latitude: Double, longitude: Double) extends RTEvent
+
+  trait StatEvent extends Event
+  case class StatSpeedEvent(statType:String, car:String, value:Double) extends StatEvent
 
     def position(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
         Promise.timeout("",randomInt(2000,3000) milliseconds).flatMap{str=>
