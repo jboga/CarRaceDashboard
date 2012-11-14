@@ -44,7 +44,7 @@ object Application extends Controller {
       implicit val timeout = Timeout(5.seconds)
       val actor = Akka.system.actorOf(Props[RTEventListener]) //,name = "comet-stream")
       // Actor is listening for event on the eventStream
-      Akka.system.eventStream.subscribe(actor, classOf[Event])
+      //Akka.system.eventStream.subscribe(actor, classOf[Event])
       // For each event, stream the data to client
       (actor ? "start").mapTo[Enumerator[JsValue]].asPromise.map {
         chunks =>

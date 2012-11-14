@@ -16,7 +16,6 @@ object StorageActor{
 
     def receive = {
       case e:Event => 
-        logger.debug("New event received : "+e)
         Akka.system.eventStream.publish(e)
         connection("events").insert(  e match {
             case SpeedEvent(car,speed) =>

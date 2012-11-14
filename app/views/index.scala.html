@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div class="well span12">
+            <div id="statdata" class="well span12">
                 <h3 style="margin-top: -10px;">Rank</h3>
                 <table class="table">
                     <thead>
@@ -65,24 +65,10 @@
                             <th>#</th>
                             <th>Car</th>
                             <th>Average speed</th>
+                            <th>Max speed</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1 <img src="/assets/images/map-icons/Car 1.png" style="height: 20px;"/></td>
-                            <td>Car 1</td>
-                            <td>142 km/h</td>
-                        </tr>
-                        <tr>
-                            <td>2 <img src="/assets/images/map-icons/Car 2.png" style="height: 20px;"/></td>
-                            <td>Car 2</td>
-                            <td>137 km/h</td>
-                        </tr>
-                        <tr>
-                            <td>3 <img src="/assets/images/map-icons/Car 3.png" style="height: 20px;"/></td>
-                            <td>Car 3</td>
-                            <td>110 km/h</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -96,9 +82,20 @@
     </footer>
 </div> <!-- /container -->
 
+    <script type="text/template" id="template-rowstats">
+        <tr>
+            <td><%= rank %><img src="<%= iconUrl %>" style="height: 20px;"/></td>
+            <td><%= name %></td>
+            <td><%= avgSpeed %></td>
+            <td><%= maxSpeed %></td>
+        </tr>
+    </script>
+
+
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/models.Car.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.Track.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.RTData.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.TrackSelector.js") "></script>
+    <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.StatData.js") "></script>
     <script type="text/javascript" src=" @routes.Assets.at("javascripts/routes.RaceDashboardRouter.js") "></script>
     }

@@ -61,16 +61,15 @@ object Streams {
         ))
       case StatSpeedEvent(statType, car, speed) =>
         JsObject(List(
-            "type" -> JsString("speedStat"),
-            "stat" -> JsString(statType),
+            "type" -> JsString(statType),
             "car" -> JsString(car),
             "value" -> JsNumber(speed)
         ))
       case RankingEvent(car, position) =>
         JsObject(List(
-            "type" -> JsString("ranking"),
+            "type" -> JsString("rank"),
             "car" -> JsString(car),
-            "rank" -> JsNumber(position)
+            "value" -> JsNumber(position)
         ))
     }
   }
