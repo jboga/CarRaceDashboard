@@ -6,13 +6,14 @@ class TrackView extends Backbone.View
     center = new google.maps.LatLng(47.937504, 0.225700)
     mapOptions = {
       center: center
-      disableDefaultUI: true
+#      disableDefaultUI: true
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     @theMap = new google.maps.Map($(@el)[0], mapOptions)
     kmlFile = "http://www.comintech.net/kml/LeMans.kml"
     @trackLayer = new google.maps.KmlLayer(kmlFile)
     @trackLayer.setMap(@theMap)
+    @theMap.setZoom(10)
     @model.on('change:pos', @updatePos)
 
 
