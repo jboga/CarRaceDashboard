@@ -26,20 +26,22 @@ class RTDataView extends Backbone.View
     @speedGauge.ticks.color = 'rgba(0, 0, 0, 0)'
     @speedGauge.range.color = 'rgba(0, 0, 0, 0)'
     @speedGauge.init()
-    speed = @model.get('speed')
-    @speedGauge.setValue(speed)
-    dist = @model.get('dist')
     @ctx = $('#distance')[0].getContext('2d')
     @odo = new odometer(@ctx, {
       height: 40
       digits: 5
       decimals: 1
-      value: dist
+      value: 0
       wobbleFactor: 0.07
     })
-    @lapCounter = new flipCounter('lapCounter', {value: 01})
+    @lapCounter = new flipCounter('lapCounter', {value: 0})
+    @titleEl = $(@el).find('h2[id=title]')
     @lapDistance = 13
 
+  changeModel: (car)=>
+    @model = car
+    @titleEl.text('Real Time Data : ' + car.get('name'))
+    @updateRTData()
     @model.on('change', @updateRTData)
 
   updateRTData: ()=>
