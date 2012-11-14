@@ -41,6 +41,11 @@ object Storage{
         )
     }
 
+    override def preStart={
+      // Clean collection
+      connection("events").dropCollection
+    }
+
   }), name = "storage")
 
 }
