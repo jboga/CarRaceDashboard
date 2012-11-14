@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3020ccac-c80b-4458-b356-d5fedb8933d6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/index.scala.html" afterPath="$PROJECT_DIR$/app/views/index.scala.html" />
     </list>
     <ignored path="CarRaceDashboard.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352931801985" ignored="false" />
     <file path="/routes.RaceDashboardRouter.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352931433849" ignored="false" />
     <file path="/views.StatData.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352931267580" ignored="false" />
-    <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352928370366" ignored="false" />
     <file path="/StatsActor.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352928211534" ignored="false" />
     <file path="/Streams.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352928085855" ignored="false" />
     <file path="/models.Car.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1352925823267" ignored="false" />
@@ -89,10 +88,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.scala.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.scala.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="35" selection-start="2724" selection-end="2724" vertical-scroll-proportion="-12.4">
+            <state line="67" column="48" selection-start="2794" selection-end="2794" vertical-scroll-proportion="0.42582417">
               <folding>
                 <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
@@ -103,6 +102,9 @@
                 <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h3#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#script#1;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -118,10 +120,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.RaceDashboardRouter.coffee" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="routes.RaceDashboardRouter.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="21" selection-start="721" selection-end="721" vertical-scroll-proportion="0.5135135">
+            <state line="20" column="21" selection-start="721" selection-end="721" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -175,7 +177,7 @@
       <file leaf-file-name="Streams.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/Streams.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="36" selection-start="2167" selection-end="2167" vertical-scroll-proportion="0.0">
+            <state line="70" column="36" selection-start="2212" selection-end="2212" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -220,10 +222,10 @@
         <option value="$PROJECT_DIR$/app/models/StorageActor.scala" />
         <option value="$PROJECT_DIR$/app/models/Streams.scala" />
         <option value="$PROJECT_DIR$/app/models/StatsActor.scala" />
-        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
         <option value="$PROJECT_DIR$/app/controllers/Application.scala" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/views.StatData.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee" />
+        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
       </list>
     </option>
   </component>
@@ -789,24 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="35" selection-start="2724" selection-end="2724" vertical-scroll-proportion="-12.4">
-          <folding>
-            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#script#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/Application.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="8" selection-start="1194" selection-end="1194" vertical-scroll-proportion="0.0">
@@ -816,7 +800,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Streams.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="36" selection-start="2167" selection-end="2167" vertical-scroll-proportion="0.0">
+        <state line="70" column="36" selection-start="2212" selection-end="2212" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -844,8 +828,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routes.RaceDashboardRouter.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="21" selection-start="721" selection-end="721" vertical-scroll-proportion="0.5135135">
+        <state line="20" column="21" selection-start="721" selection-end="721" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="48" selection-start="2794" selection-end="2794" vertical-scroll-proportion="0.42582417">
+          <folding>
+            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#script#1;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
