@@ -22,11 +22,13 @@ object Application extends Controller {
   def startRace = Action {
     // Start the race
     models.Race.raceActor ! "start"
+    // Start the stats
+    models.StatsActor.actor ! "start"
 
     // Connect the event stream to the storage actor
     Streams.events(Iteratee.foreach[Event] {
       event =>
-        models.Storage.storeActor ! event
+        models.StorageActor.actor ! event
     })
 
     Ok("started")

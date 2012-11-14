@@ -8,14 +8,15 @@ import play.api.Logger
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
 
-object Storage{
+object StorageActor{
 	
-  val logger=Logger("storage-actor")
+  val logger=Logger("actor-storage")
 
-  val storeActor =  Akka.system.actorOf(Props(new Actor {
+  val actor =  Akka.system.actorOf(Props(new Actor {
 
     def receive = {
       case e:Event => 
+        logger.debug("New event received : "+e)
         Akka.system.eventStream.publish(e)
         connection("events").insert(  e match {
             case SpeedEvent(car,speed) =>
