@@ -29,7 +29,6 @@ object StatsActor{
               }
           case None =>
         }
-        context.system.scheduler.scheduleOnce(5 seconds,self,"avgSpeed")
 
       case "maxSpeed"=>
         // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", value: {$max: "$speed"}}}]
@@ -43,7 +42,6 @@ object StatsActor{
               }
           case None =>
         }
-        context.system.scheduler.scheduleOnce(5 seconds,self,"maxSpeed")
 
       case "ranking" =>
         aggregatedMaxDist match {
@@ -59,12 +57,12 @@ object StatsActor{
               }
           case _ =>
         }
-        context.system.scheduler.scheduleOnce(5 seconds,self,"ranking")
+
 
       case "start" =>
-        self ! "avgSpeed"
-        self ! "maxSpeed"
-        self ! "ranking"
+        context.system.scheduler.schedule(3 seconds,3 seconds,self,"ranking")
+        context.system.scheduler.schedule(5 seconds,5 seconds,self,"avgSpeed")
+        context.system.scheduler.schedule(7 seconds,7 seconds,self,"maxSpeed")
     }
 
 
