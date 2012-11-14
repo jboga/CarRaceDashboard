@@ -2,6 +2,7 @@ class RaceDashboardRouter extends Backbone.Router
 
   initialize: ()->
     @cars = new Backbone.Collection()
+    @cars.comparator = (car)-> car.get('rank')
     car1 = new app.models.Car({name: "Car 1", rank: 0, iconUrl: "/assets/images/map-icons/Car 1.png", speed: 0, dist: 0, lap: 0, avgSpeed: 0, maxSpeed: 0})
     @cars.add(car1)
     @trackView = new app.views.TrackView(model: @cars)
@@ -21,6 +22,7 @@ class RaceDashboardRouter extends Backbone.Router
     car = _.find(@cars.models,(each)-> event.car is each.get('name'))
     if car
       car.set(event.type, event.value)
+      @cars.sort()
     else
       newCar = new app.models.Car({
         name: event.car
