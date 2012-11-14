@@ -17,25 +17,25 @@ object StatsActor{
 
     def receive = {
 
-      case "meanSpeed"=>
-        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", mean: {$avg: "$speed"}}}]
-        aggregateSpeed[Double](MongoDBObject("$avg"->"$speed")) match {
+      case "avgSpeed"=>
+        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", value: {$avg: "$speed"}}}]
+        aggregatedSpeed[Double](MongoDBObject("$avg"->"$speed")) match {
           case Some(carsWithAvg) =>
             carsWithAvg
-              .map((value)=>StatSpeedEvent("meanSpeed",value._1,value._2))
+              .map((value)=>StatSpeedEvent("avgSpeed",value._1,value._2))
               .foreach{event=>
                 logger.debug("New stat : "+event)
                 Akka.system.eventStream.publish(event)
               }
           case None =>
         }
-        context.system.scheduler.scheduleOnce(5 seconds,self,"meanSpeed")
+        context.system.scheduler.scheduleOnce(5 seconds,self,"avgSpeed")
 
       case "maxSpeed"=>
-        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", mean: {$max: "$speed"}}}]
-        aggregateSpeed[Int](MongoDBObject("$max"->"$speed")) match {
-          case Some(carsWithAvg) =>
-            carsWithAvg
+        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", value: {$max: "$speed"}}}]
+        aggregatedSpeed[Int](MongoDBObject("$max"->"$speed")) match {
+          case Some(carsWithMax) =>
+            carsWithMax
               .map((value)=>StatSpeedEvent("maxSpeed",value._1,value._2))
               .foreach{event=>
                 logger.debug("New stat : "+event)
@@ -45,14 +45,31 @@ object StatsActor{
         }
         context.system.scheduler.scheduleOnce(5 seconds,self,"maxSpeed")
 
+      case "ranking" =>
+        aggregatedMaxDist match {
+          case Some(dist) =>
+            dist
+              .sortWith((x,y)=>x._2 > y._2)
+              .map(_._1)
+              .zipWithIndex
+              .map(rank=>RankingEvent(rank._1,rank._2+1))
+              .foreach{event=>
+                logger.debug("New stat : "+event)
+                Akka.system.eventStream.publish(event)
+              }
+          case _ =>
+        }
+        context.system.scheduler.scheduleOnce(5 seconds,self,"ranking")
+
       case "start" =>
-        self ! "meanSpeed"
+        self ! "avgSpeed"
         self ! "maxSpeed"
+        self ! "ranking"
     }
 
 
     import scala.reflect.Manifest
-    private def aggregateSpeed[T: Manifest](value: MongoDBObject):Option[Seq[(String,T)]]=
+    private def aggregatedSpeed[T: Manifest](value: MongoDBObject):Option[Seq[(String,T)]]=
       connection.command(
         MongoDBObject(
           "aggregate"->"events",
@@ -74,6 +91,32 @@ object StatsActor{
           case c => 
             None
         }
+    
+    private def aggregatedMaxDist:Option[Seq[(String,Double)]]=
+      connection.command(
+        MongoDBObject(
+          "aggregate"->"events",
+          "pipeline" -> MongoDBList(
+            MongoDBObject(
+              "$match" -> MongoDBObject("type" -> "dist")
+            ),
+            MongoDBObject(
+              "$group" -> MongoDBObject(
+                "_id" -> "$car",
+                "value" -> MongoDBObject("$max"->"$dist")
+              )
+            )
+          )
+        )
+      ).get("result") match {
+          case result:BasicDBList =>
+            Some(result.map(_.asInstanceOf[BasicDBObject]).map(v=>(v.getAs[String]("_id").get,v.getAs[Double]("value").get)))
+          case c => 
+            None
+        }
+
+
+
     }))
 	
 }

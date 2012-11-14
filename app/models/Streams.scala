@@ -61,10 +61,16 @@ object Streams {
         ))
       case StatSpeedEvent(statType, car, speed) =>
         JsObject(List(
-            "type" -> JsString("stat"),
+            "type" -> JsString("speedStat"),
             "stat" -> JsString(statType),
             "car" -> JsString(car),
             "value" -> JsNumber(speed)
+        ))
+      case RankingEvent(car, position) =>
+        JsObject(List(
+            "type" -> JsString("ranking"),
+            "car" -> JsString(car),
+            "rank" -> JsNumber(position)
         ))
     }
   }
@@ -78,6 +84,7 @@ object Streams {
 
   trait StatEvent extends Event
   case class StatSpeedEvent(statType:String, car:String, value:Double) extends StatEvent
+  case class RankingEvent(car:String, position:Int) extends StatEvent
 
     def position(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
         Promise.timeout("",randomInt(2000,3000) milliseconds).flatMap{str=>
