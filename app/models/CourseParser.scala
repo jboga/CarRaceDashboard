@@ -33,5 +33,5 @@ object CourseParser{
       sin(toRadians(pos1.latitude)) * sin(toRadians(pos2.latitude))
       + cos(toRadians(pos1.latitude)) * cos(toRadians(pos2.latitude)) * cos(toRadians(pos1.longitude)
       - toRadians(pos2.longitude))
-    ) * 6366
+    ) * 6366000
 }

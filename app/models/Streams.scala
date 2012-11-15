@@ -27,7 +27,7 @@ object Streams {
           val speed = (json \ "value").as[Int]
           SpeedEvent(car, speed)
         case "dist" =>
-          val dist = (json \ "value").as[Double]
+          val dist = (json \ "value").as[Double] * 1000
           DistEvent(car, dist)
         case "pos" =>
           val longitude = (json \ "long").as[Double]
@@ -47,7 +47,7 @@ object Streams {
         JsObject(List(
           "type" -> JsString("dist"),
           "car" -> JsString(car),
-          "value" -> JsNumber(dist)
+          "value" -> JsNumber(dist/1000)
         ))
       case PositionEvent(car, latitude, longitude) =>
         JsObject(List(
