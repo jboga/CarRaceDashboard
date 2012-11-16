@@ -36,7 +36,7 @@ class RTDataView extends Backbone.View
     })
     @lapCounter = new flipCounter('lapCounter', {value: 0})
     @titleEl = $(@el).find('h2[id=title]')
-    @lapDistance = 13
+    @lapDistance = trackLength
 
   changeModel: (car)=>
     @model = car

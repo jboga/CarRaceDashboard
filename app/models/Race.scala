@@ -20,8 +20,10 @@ object Race {
 
   type Course = List[CheckPoint]
 
+  val period = 1
+
   // Represent a Car at a specific point of the course
-  case class Car(label: String, point: CheckPoint, speed: Double, totalDist: Double, time: Long) {
+  case class Car(label: String, point: CheckPoint = course.head, speed: Double, totalDist: Double, time: Long) {
     def moveToCheckpoint(newPoint: CheckPoint) = {
       val t = System.currentTimeMillis - time
       val v = 3600 * newPoint.distFromPrevious / t
@@ -36,6 +38,11 @@ object Race {
 
   // Load course from kml (list of checkpoints)
   private lazy val course: Course = readCourse("public/tracks/LeMans.kml")
+
+  lazy val lapLength: Double = lapLength(course)
+
+  def lapLength(course: Course) =course.map(checkPoint => checkPoint.distFromPrevious).sum
+
 
   // Get next checkpoint, based on course
   private def next(point: CheckPoint) =
@@ -84,10 +91,10 @@ object Race {
   )
 
   // "Race" stream for a car. Each value is a state of the car `car` at a time t of the race.
-  def stream(car: Car): Stream[Car] = {
+  def raceStream(car: Car): Stream[Car] = {
     def loop(prev: Car): Stream[Car] =
       prev #:: loop(
-        prev.moveToCheckpoint(next(prev.point, randomInt(30, 50)))
+        prev.moveToCheckpoint(next(prev.point, randomInt(20, 60)))
       )
     loop(car)
   }
@@ -101,17 +108,17 @@ object Race {
   // An actor which moves a Car on the course, based on the stream
   class CarActor(carLabel: String) extends Actor {
 
-    private lazy val iterator = stream(Car(carLabel, course.head, 0, 0, System.currentTimeMillis)).iterator
+    private lazy val iterator = raceStream(Car(carLabel, course.head, 0, 0, System.currentTimeMillis)).iterator
     private var state: Car = null
 
     def receive = {
       case "start" =>
         state = iterator.next
-        context.system.scheduler.scheduleOnce(1 seconds, self, "move")
+        context.system.scheduler.scheduleOnce(period seconds, self, "move")
 
       case "move" =>
         state = iterator.next
-        context.system.scheduler.scheduleOnce(1 seconds, self, "move")
+        context.system.scheduler.scheduleOnce(period seconds, self, "move")
 
       case "getState" => sender ! state
     }

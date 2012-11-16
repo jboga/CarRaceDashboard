@@ -41,7 +41,7 @@ object Streams {
         JsObject(List(
           "type" -> JsString("speed"),
           "car" -> JsString(car),
-          "value" -> JsNumber(speed)
+          "value" -> JsNumber(speed.toInt)
         ))
       case DistEvent(car, dist) =>
         JsObject(List(

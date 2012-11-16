@@ -54,18 +54,19 @@ object Application extends Controller {
   }
 }
 
-class RTEventListener extends Actor{
-  lazy val channel: PushEnumerator[JsValue] =  Enumerator.imperative[JsValue](
+class RTEventListener extends Actor {
+  lazy val channel: PushEnumerator[JsValue] = Enumerator.imperative[JsValue](
     onComplete = {
       Akka.system.eventStream.unsubscribe(self)
       context.stop(self)
     }
   )
-  def receive={
+
+  def receive = {
     case "start" =>
-      Akka.system.eventStream.subscribe(self,classOf[Event])
+      Akka.system.eventStream.subscribe(self, classOf[Event])
       sender ! channel
-    case change:Event =>
+    case change: Event =>
       channel.push(toJson(change)) // Push jsonified event
   }
 }

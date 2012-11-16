@@ -5,6 +5,7 @@ import scala.math._
 import scala.xml._
 import play.api.Play
 import play.api.Play.current
+import java.io.File
 
 /*
   A parser of 'kml' files to read a Course (list of CheckPoints)
@@ -12,8 +13,9 @@ import play.api.Play.current
 object CourseParser{
 
   // Read a course from a kml (google maps) file
-  def readCourse(filename:String):Course={
-    val data = XML.loadFile(Play.getFile(filename))
+  def readCourse(filename:String):Course = readCourse(XML.loadFile(Play.getFile(filename)))
+
+  def readCourse(data: Elem):Course = {
     val positions=(for {
       pos <- (data \\ "coordinates").text.split("\n")
       if (pos.trim.length>0)
