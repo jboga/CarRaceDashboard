@@ -4,12 +4,11 @@
     <list default="true" id="3020ccac-c80b-4458-b356-d5fedb8933d6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Race.scala" afterPath="$PROJECT_DIR$/app/models/Race.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RaceSpec.scala" afterPath="$PROJECT_DIR$/test/RaceSpec.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CarRaceDashboard.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/RaceSpec.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353145502839" ignored="false" />
-    <file path="/Race.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353145029402" ignored="false" />
+    <file path="/Race.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353162063436" ignored="false" />
+    <file path="/RaceSpec.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353161476025" ignored="false" />
     <file path="/views.RTData.coffee" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353073257490" ignored="false" />
     <file path="/index.scala.html" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353073207008" ignored="false" />
     <file path="/CourseParser.scala" changelist="3020ccac-c80b-4458-b356-d5fedb8933d6" time="1353061847947" ignored="false" />
@@ -93,10 +92,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Race.scala" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Race.scala" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="44" selection-start="2688" selection-end="2688" vertical-scroll-proportion="0.0">
+            <state line="92" column="3" selection-start="2996" selection-end="2996" vertical-scroll-proportion="1.6751055">
               <folding />
             </state>
           </provider>
@@ -164,10 +163,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RaceSpec.scala" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="RaceSpec.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/RaceSpec.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="60" selection-start="1968" selection-end="1968" vertical-scroll-proportion="0.74567246">
+            <state line="31" column="36" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#14#41#0" expanded="true" />
               </folding>
@@ -236,8 +235,8 @@
         <option value="$PROJECT_DIR$/app/models/CourseParser.scala" />
         <option value="$PROJECT_DIR$/app/views/index.scala.html" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/views.RTData.coffee" />
-        <option value="$PROJECT_DIR$/app/models/Race.scala" />
         <option value="$PROJECT_DIR$/test/RaceSpec.scala" />
+        <option value="$PROJECT_DIR$/app/models/Race.scala" />
       </list>
     </option>
   </component>
@@ -590,6 +589,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32917705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -603,11 +603,10 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.670398" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.6708229" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -713,13 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Streams.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="32" selection-start="1748" selection-end="1748" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/DB.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="7" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0">
@@ -772,19 +764,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
+    <entry file="file://$PROJECT_DIR$/test/RaceSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="44" selection-start="2688" selection-end="2688" vertical-scroll-proportion="0.0">
+        <state line="31" column="36" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#14#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Streams.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="32" selection-start="1748" selection-end="1748" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/RaceSpec.scala">
+    <entry file="file://$PROJECT_DIR$/app/models/Race.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="60" selection-start="1968" selection-end="1968" vertical-scroll-proportion="0.74567246">
-          <folding>
-            <element signature="e#14#41#0" expanded="true" />
-          </folding>
+        <state line="92" column="3" selection-start="2996" selection-end="2996" vertical-scroll-proportion="1.6751055">
+          <folding />
         </state>
       </provider>
     </entry>

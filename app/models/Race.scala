@@ -45,14 +45,15 @@ object Race {
 
 
   // Get next checkpoint, based on course
-  private def next(point: CheckPoint) =
+  private def nextTrackPoint(point: CheckPoint) =
     if (point.id + 1 >= course.size)
       course.head // new lap
     else
       course(point.id + 1)
 
+  //return new CheckPoint on the track at distance d from point
   private def next(point: CheckPoint, distance: Double): CheckPoint = {
-    val nextPoint = next(point)
+    val nextPoint = nextTrackPoint(point)
     val distanceBetween = computeDistance(point.position, nextPoint.position)
     if (distance < distanceBetween)
       CheckPoint(point.id, computePosition(point.position, nextPoint.position, distance), distance)
@@ -68,19 +69,11 @@ object Race {
         - toRadians(pos2.longitude))
     ) * 6366000
 
-  def computePosition(point: Position, nextPoint: Position, distance: Double): Position = {
-    val precision = 1.0
-    if (distance < precision)
-      point
-    else {
-      val distanceBetween = computeDistance(point, nextPoint)
-      val middlePoint = Position((point.latitude + nextPoint.latitude) / 2, (point.longitude + nextPoint.longitude) / 2)
-      val d2 = computeDistance(point, middlePoint)
-      if (d2 < distance)
-        computePosition(middlePoint, nextPoint, distance - d2)
-      else
-        computePosition(point, middlePoint, distance)
-    }
+  //return a position between point1 and point2 at distance d from point1
+  def computePosition(point1: Position, point2: Position, d: Double): Position = {
+    val distanceBetween = computeDistance(point1, point2)
+    val ratio = d / distanceBetween
+    Position(point1.latitude * (1 - ratio) + point2.latitude * ratio, point1.longitude * (1 - ratio) + point2.longitude * ratio)
   }
 
   // List of concurrents
@@ -94,14 +87,10 @@ object Race {
   def raceStream(car: Car): Stream[Car] = {
     def loop(prev: Car): Stream[Car] =
       prev #:: loop(
-        prev.moveToCheckpoint(next(prev.point, randomInt(20, 60)))
+        prev.moveToCheckpoint(next(prev.point, randomInt(41, 70)))
       )
     loop(car)
   }
-
-  // Random schedule next move to checkpoint, according to min and max values for speed
-  def scheduleNextMove(nextPoint: CheckPoint, vMin: Int, vMax: Int) =
-    (nextPoint.distFromPrevious / randomInt(vMin, vMax)) * 3600
 
   val system = ActorSystem("RaceSystem")
 

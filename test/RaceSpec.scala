@@ -29,9 +29,9 @@ class RacedSpec extends Specification {
     def stepInTime(it: Iterator[Car], n: Int) = {
       for (i <- 1 to n) {
         val c = stepOne(it)
-        System.out.println("Distance pos1 : " + c.totalDist)
-        System.out.println("Speed pos1 : " + c.speed)
-        System.out.println("time pos1 : " + c.time)
+        System.out.println("Distance : " + c.totalDist)
+        System.out.println("Speed : " + c.speed)
+        System.out.println("time : " + c.time)
       }
     }
 
@@ -45,7 +45,7 @@ class RacedSpec extends Specification {
       val pos2 = stepOne(raceIterator)
       val dist = pos2.point.distFromPrevious * Random.nextInt(100)/100.0
       val newPos = computePosition(pos1.point.position, pos2.point.position, dist)
-      dist - computeDistance(pos1.point.position, newPos) must not beGreaterThan (1.0)
+      computeDistance(pos1.point.position, newPos).round must beEqualTo(dist.round)
     }
 
     "Recorded distance between 2 points is coherent" in {
@@ -59,7 +59,7 @@ class RacedSpec extends Specification {
       val pos2 = stepOne(raceIterator)
       val distBetween = pos2.totalDist - pos1.totalDist
       val computedDist = computeDistance(pos1.point.position, pos2.point.position)
-      distBetween - computedDist must not beGreaterThan (1.0)
+      distBetween.round must beEqualTo (computedDist.round)
     }
 
     "Time between 2 points is coherent" in {
