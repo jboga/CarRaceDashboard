@@ -13,12 +13,13 @@ object StatsActor{
 
   private val logger = Logger("actor-stats")
 
+  // 3 types of message are sent to this actor at fixed interval : avgSpeed, maxSpeed and ranking
+  // For each message, the actor computes the statistic (by using Mongo DB Aggregation Framework) and publishes a StatEvent on the eventStream
   val actor =  Akka.system.actorOf(Props(new Actor {
 
     def receive = {
 
       case "avgSpeed"=>
-        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", value: {$avg: "$speed"}}}]
         aggregatedSpeed[Double](MongoDBObject("$avg"->"$speed")) match {
           case Some(carsWithAvg) =>
             carsWithAvg
@@ -31,7 +32,6 @@ object StatsActor{
         }
 
       case "maxSpeed"=>
-        // Pipeline is [{$match: {type: "speed"}},{$group: {_id: "$car", value: {$max: "$speed"}}}]
         aggregatedSpeed[Int](MongoDBObject("$max"->"$speed")) match {
           case Some(carsWithMax) =>
             carsWithMax
@@ -66,6 +66,7 @@ object StatsActor{
     }
 
 
+    // Execute a aggregate command in Mongo
     import scala.reflect.Manifest
     private def aggregatedSpeed[T: Manifest](value: MongoDBObject):Option[Seq[(String,T)]]=
       connection.command(

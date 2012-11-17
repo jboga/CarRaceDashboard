@@ -22,7 +22,7 @@ object Application extends Controller {
   def startRace = Action {
     // Start the race
     models.Race.raceActor ! "start"
-    // Start the stats
+    // Compute statistics
     models.StatsActor.actor ! "start"
 
     // Connect the event stream to the storage actor
@@ -42,9 +42,8 @@ object Application extends Controller {
   def rtEventSourceStream = Action {
     AsyncResult {
       implicit val timeout = Timeout(5.seconds)
-      val actor = Akka.system.actorOf(Props[RTEventListener]) //,name = "comet-stream")
+      val actor = Akka.system.actorOf(Props[RTEventListener])
       // Actor is listening for event on the eventStream
-      //Akka.system.eventStream.subscribe(actor, classOf[Event])
       // For each event, stream the data to client
       (actor ? "start").mapTo[Enumerator[JsValue]].asPromise.map {
         chunks =>

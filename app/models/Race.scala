@@ -20,7 +20,7 @@ object Race {
 
   type Course = List[CheckPoint]
 
-  val period = 1
+  val period = 1 seconds
 
   // Represent a Car at a specific point of the course
   case class Car(label: String, point: CheckPoint = course.head, speed: Double, totalDist: Double, time: Long) {
@@ -101,14 +101,16 @@ object Race {
     private var state: Car = null
 
     def receive = {
+      // The race is starting!
       case "start" =>
         state = iterator.next
-        context.system.scheduler.scheduleOnce(period seconds, self, "move")
+        context.system.scheduler.schedule(period,period,self,"move") // Schedule each move of the car
 
+      // The car moves to a new point
       case "move" =>
         state = iterator.next
-        context.system.scheduler.scheduleOnce(period seconds, self, "move")
 
+      // Send the current car state to the sender
       case "getState" => sender ! state
     }
   }
@@ -121,12 +123,13 @@ object Race {
     val router = context.actorOf(Props[CarActor].withRouter(akka.routing.BroadcastRouter(carActors)))
 
     def receive = {
+      // Let's go!
       case "start" => router ! "start"
     }
   }))
 
   // Get a random int between from and to
-  def randomInt(from: Int, to: Int) = from + Random.nextInt(to - from)
+  private def randomInt(from: Int, to: Int) = from + Random.nextInt(to - from)
 
 
 }

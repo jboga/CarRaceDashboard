@@ -5,6 +5,7 @@ import play.api.Play._
 
 object DB {
 
+  // Get a MongoDB connection based on application.conf
   lazy val connection =
     MongoConnection(
       configuration.getString("mongo.host").getOrElse("127.0.0.1"),
