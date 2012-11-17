@@ -12,13 +12,8 @@ import play.api.libs.json._
 import play.api.libs.json.Json._
 import akka.util.duration._
 
-/*  
-    These streams are used to obtain test datas.
-    We assume that in a real application, the `events` Enumerator is provided by an external streaming service (like HTTP streaming)
-*/
-object Streams {
-  implicit val timeout = Timeout(5 seconds)
 
+object Streams{
   // JSON representation of events
   implicit object EventFormat extends Writes[Event] {
     def writes(e: Event): JsValue = e match {
@@ -60,6 +55,16 @@ object Streams {
   trait StatEvent extends Event
   case class StatSpeedEvent(statType:String, car:String, value:Double) extends StatEvent
   case class RankingEvent(car:String, position:Int) extends StatEvent
+}
+
+/*  
+    These streams are used to obtain test datas.
+    We assume that in a real application, the `events` Enumerator is provided by an external streaming service (like HTTP streaming)
+*/
+class Streams(race:Race) {
+  import models.Streams._
+
+  implicit val timeout = Timeout(5 seconds)
 
   // Enumerators which produce events (Position,Speed and Distance) based on a Car actor
   val period = 1 seconds
@@ -100,13 +105,13 @@ object Streams {
   
   // We interleave enumerators for all actors to obtain a stream with all cars for each event type
   val allPositions:Enumerator[Event] = 
-        carActors.map(position).foldLeft(Enumerator[Event]())((acc,enum)=>acc.interleave(enum))
+        race.carActors.map(position).foldLeft(Enumerator[Event]())((acc,enum)=>acc.interleave(enum))
 
   val allDistances:Enumerator[Event] = 
-        carActors.map(distance).foldLeft(Enumerator[Event]())((acc,enum)=>acc.interleave(enum))
+        race.carActors.map(distance).foldLeft(Enumerator[Event]())((acc,enum)=>acc.interleave(enum))
 
   val allSpeeds:Enumerator[Event] = 
-        carActors.map(speed).foldLeft(Enumerator[Event]())((acc,enum)=>acc.interleave(enum))
+        race.carActors.map(speed).foldLeft(Enumerator[Event]())((acc,enum)=>acc.interleave(enum))
 
   // Finally, we interleave all event types to obtain a stream of all events from all cars
   lazy val events = allPositions >- allDistances >- allSpeeds

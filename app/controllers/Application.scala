@@ -16,27 +16,53 @@ import scala.Predef._
 import models.Streams
 import models.Streams.Event
 import play.Logger
+import models.Race
 
 object Application extends Controller {
 
-  def startRace = Action {
-    // Start the race
-    models.Race.raceActor ! "start"
-    // Compute statistics
-    models.StatsActor.actor ! "start"
+  var currentRace:Option[Race]=None
 
-    // Connect the event stream to the storage actor
-    Streams.events(Iteratee.foreach[Event] {
-      event =>
-        models.StorageActor.actor ! event
-    })
+  def startRace = Action {request=>
+    val formData=request.body.asFormUrlEncoded
+    val trackURL = 
+      (formData.get("track"), formData.get("trackURL")) match {
+        case (url :: xs,_) if url.length > 0    => Some(url)
+        case (_, url :: xs) if url.length > 0   => Some(url)
+        case _ => None
+      }
+    trackURL.map{url=>
+      currentRace match {
+        case None =>
+          val race=new Race(url)
 
-    Ok("started")
+          // Start the race
+          race.actor ! "start"
+          // Compute statistics
+          models.StatsActor.actor ! "start"
+
+          // Connect the event stream to the storage actor
+          new Streams(race).events(Iteratee.foreach[Event] {
+            event =>
+              models.StorageActor.actor ! event
+          })
+
+          currentRace=Some(race)
+
+          Redirect("/")
+
+        case _ =>
+          // a race is already started
+          BadRequest(views.html.chooseRace(Some("""A race is in progress! <a href="/">Click here</a> to view the race.""")))
+      }
+    }.getOrElse(BadRequest(views.html.chooseRace(Some("Track is mandatory!"))))
   }
 
 
   def index = Action {
-    Ok(views.html.index())
+    currentRace match {
+      case Some(race) => Ok(views.html.viewRace(race))
+      case None => Ok(views.html.chooseRace())
+    }
   }
 
   def rtEventSourceStream = Action {

@@ -1,0 +1,76 @@
+@(error:Option[String]=None)
+
+@main("Welcome to Car Race Dashboard") {
+    
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="#">Car Race Dashboard</a>
+            <div class="form-horizontal control-group">
+                <div class="btn-group pull-right">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    @error.map{err=>
+    <header>
+        <div class="alert alert-error">
+            @Html(err)
+        </div>
+    </header>
+    }
+<!-- Example row of columns -->
+    <div class="row-fluid">
+        <div class="well span12">
+            <h2 style="margin-top: -10px;">Load a track and start the game!</h2>
+            <div id="track" style="width:100%; height:270px">
+                <p>There is no current race.</p>
+                <p>Please, select a race below or give an URL to a KML file</p>
+                <form class="form-horizontal" method="POST" action="@routes.Application.startRace">
+                  <div class="control-group">
+                    <label class="control-label" for="track">Pre-loaded race</label>
+                    <div class="controls">
+                      <select name="track">
+                            <option value=""></option>
+                            <option value="http://www.comintech.net/kml/LeMans.kml">Le Mans</option>
+                            <option value="http://antoine.detante.fr/ValenciaF1UrbanCircuit.kml">Valencia</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="track">or URL of KML</label>
+                    <div class="controls">
+                      <input name="trackURL" type="text"/>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" value="Showtime!"/>                    
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; InTech 2012</p>
+    </footer>
+</div> <!-- /container -->
+
+    <script type="text/template" id="template-rowstats">
+        <tr>
+            <td><%= rank %><img src="<%= iconUrl %>" style="height: 20px;"/></td>
+            <td><%= name %></td>
+            <td><%= avgSpeed %></td>
+            <td><%= maxSpeed %></td>
+        </tr>
+    </script>
+}

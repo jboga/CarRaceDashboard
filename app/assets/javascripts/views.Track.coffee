@@ -10,7 +10,7 @@ class TrackView extends Backbone.View
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     @theMap = new google.maps.Map($(@el)[0], mapOptions)
-    kmlFile = "http://www.comintech.net/kml/LeMans.kml"
+    kmlFile = trackKML
     @trackLayer = new google.maps.KmlLayer(kmlFile)
     @trackLayer.setMap(@theMap)
     @theMap.setZoom(10)

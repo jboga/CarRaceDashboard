@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET		/start						controllers.Application.startRace
+POST	/start						controllers.Application.startRace
 GET     /rtEventSource              controllers.Application.rtEventSourceStream
 
 # Map static resources from the /public folder to the /assets URL path

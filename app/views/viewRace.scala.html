@@ -1,8 +1,9 @@
-@()
+@(race:models.Race)
 
 @main("Welcome to Car Race Dashboard") {
     <script type="text/javascript">
-    var trackLength = @{models.Race.lapLength/1000};
+    var trackLength = @{race.lapLength/1000};
+    var trackKML="@race.trackURL";
     var source = new EventSource(" @routes.Application.rtEventSourceStream ");
     console.log("EventSource created");
     source.onmessage = function (event) {
@@ -31,7 +32,7 @@
 <!-- Example row of columns -->
     <div class="row-fluid">
         <div class="well span7">
-            <h2 style="margin-top: -10px;">Race Track: @{(models.Race.lapLength/10).toInt.toFloat/100} kms</h2>
+            <h2 style="margin-top: -10px;">Race Track: @{(race.lapLength/10).toInt.toFloat/100} kms</h2>
             <div id="track" style="width:100%; height:270px"></div>
         </div>
         <div class="well span5">

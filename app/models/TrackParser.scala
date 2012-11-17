@@ -13,7 +13,7 @@ import java.io.File
 object TrackParser{
 
   // Read a Track from a kml (google maps) file
-  def readTrack(filename:String):Track = readTrack(XML.loadFile(Play.getFile(filename)))
+  def readTrack(url:String):Track = readTrack(XML.load(url))
 
   def readTrack(data: Elem):Track = {
     val positions=(for {

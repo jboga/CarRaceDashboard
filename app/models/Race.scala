@@ -5,28 +5,26 @@ import play.api.libs.concurrent._
 import scala.util.Random
 import akka.actor._
 import akka.util.duration._
-import models.TrackParser._
 import math._
 
-/*
-  Represent a race, and states of cars.
-  Used to get some test datas.
-*/
-object Race {
+object Race{
 
   case class Position(latitude: Double, longitude: Double)
-
   case class CheckPoint(id: Int, position: Position)
 
   type Track = List[CheckPoint]
 
+  case class Car(label: String, point: CheckPoint, speed: Int, totalDist: Double)
+
+}
+
+import models.Race._
+
+class Race(val trackURL:String){
+
+  val track:Track=models.TrackParser.readTrack(trackURL)
+
   val period = 1 // in second
-
-  // Represent a Car at a specific point of the track
-  case class Car(label: String, point: CheckPoint = track.head, speed: Int, totalDist: Double)
-
-  // Load track from kml (list of checkpoints)
-  private lazy val track: Track = readTrack("public/tracks/LeMans.kml")
 
   lazy val lapLength: Double = lapLength(track)
 
@@ -124,7 +122,7 @@ object Race {
   // An actor which represent the race, with a BroadcastRouter to fire "start" event on all cars.
   val carActors = cars.map(car => system.actorOf(Props(new CarActor(car))))
 
-  val raceActor = system.actorOf(Props(new Actor {
+  val actor = system.actorOf(Props(new Actor {
 
     val router = context.actorOf(Props[CarActor].withRouter(akka.routing.BroadcastRouter(carActors)))
 
