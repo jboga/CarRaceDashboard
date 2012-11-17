@@ -10,6 +10,7 @@ import akka.util.Timeout
 import akka.actor._
 import play.api.libs.json._
 import play.api.libs.json.Json._
+import akka.util.duration._
 
 /*  
     These streams are used to obtain test datas.
@@ -85,8 +86,10 @@ object Streams {
   case class StatSpeedEvent(statType:String, car:String, value:Double) extends StatEvent
   case class RankingEvent(car:String, position:Int) extends StatEvent
 
+  val period = 1 seconds
+
     def position(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
-        Promise.timeout("",randomInt(2000,3000) milliseconds).flatMap{str=>
+        Promise.timeout("",period).flatMap{str=>
             (actor ? "getState").mapTo[Car].asPromise.map{car=>
                 Some(PositionEvent(
                     car.label,
@@ -98,7 +101,7 @@ object Streams {
     }
 
     def distance(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
-        Promise.timeout("",randomInt(2000,3000) milliseconds).flatMap{str=>
+        Promise.timeout("",period).flatMap{str=>
             (actor ? "getState").mapTo[Car].asPromise.map{car=>
                 Some(DistEvent(
                     car.label,
@@ -109,7 +112,7 @@ object Streams {
     }
 
     def speed(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
-        Promise.timeout("",randomInt(2000,3000) milliseconds).flatMap{str=>
+        Promise.timeout("",period).flatMap{str=>
             (actor ? "getState").mapTo[Car].asPromise.map{car=>
                 Some(SpeedEvent(
                     car.label,
