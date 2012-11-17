@@ -16,6 +16,23 @@ object Race{
 
   case class Car(label: String, point: CheckPoint, speed: Int, totalDist: Double)
 
+  
+  // Compute the distance between two position
+  def computeDistance(pos1: Position, pos2: Position): Double =
+    acos(
+      sin(toRadians(pos1.latitude)) * sin(toRadians(pos2.latitude))
+        + cos(toRadians(pos1.latitude)) * cos(toRadians(pos2.latitude)) * cos(toRadians(pos1.longitude)
+        - toRadians(pos2.longitude))
+    ) * 6366000
+
+  //return a position between point1 and point2 at distance d from point1
+  def computePosition(point1: Position, point2: Position, d: Double): Position = {
+    val distanceBetween = computeDistance(point1, point2)
+    val ratio = d / distanceBetween
+    Position(point1.latitude * (1 - ratio) + point2.latitude * ratio, point1.longitude * (1 - ratio) + point2.longitude * ratio)
+  }
+
+
 }
 
 import models.Race._
@@ -49,21 +66,6 @@ class Race(val trackURL:String){
       CheckPoint(point.id, computePosition(point.position, nextPoint.position, distance))
     else
       next(nextPoint, (distance - distanceBetween))
-  }
-
-  // Compute the distance between two position
-  def computeDistance(pos1: Position, pos2: Position): Double =
-    acos(
-      sin(toRadians(pos1.latitude)) * sin(toRadians(pos2.latitude))
-        + cos(toRadians(pos1.latitude)) * cos(toRadians(pos2.latitude)) * cos(toRadians(pos1.longitude)
-        - toRadians(pos2.longitude))
-    ) * 6366000
-
-  //return a position between point1 and point2 at distance d from point1
-  def computePosition(point1: Position, point2: Position, d: Double): Position = {
-    val distanceBetween = computeDistance(point1, point2)
-    val ratio = d / distanceBetween
-    Position(point1.latitude * (1 - ratio) + point2.latitude * ratio, point1.longitude * (1 - ratio) + point2.longitude * ratio)
   }
 
   // List of concurrents
