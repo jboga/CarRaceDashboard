@@ -8,14 +8,14 @@ import play.api.Play.current
 import java.io.File
 
 /*
-  A parser of 'kml' files to read a Course (list of CheckPoints)
+  A parser of 'kml' files to read a Track (list of CheckPoints)
 */
-object CourseParser{
+object TrackParser{
 
-  // Read a course from a kml (google maps) file
-  def readCourse(filename:String):Course = readCourse(XML.loadFile(Play.getFile(filename)))
+  // Read a Track from a kml (google maps) file
+  def readTrack(filename:String):Track = readTrack(XML.loadFile(Play.getFile(filename)))
 
-  def readCourse(data: Elem):Course = {
+  def readTrack(data: Elem):Track = {
     val positions=(for {
       pos <- (data \\ "coordinates").text.split("\n")
       if (pos.trim.length>0)

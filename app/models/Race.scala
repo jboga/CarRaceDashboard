@@ -5,7 +5,7 @@ import play.api.libs.concurrent._
 import scala.util.Random
 import akka.actor._
 import akka.util.duration._
-import models.CourseParser._
+import models.TrackParser._
 import math._
 
 /*
@@ -18,12 +18,12 @@ object Race {
 
   case class CheckPoint(id: Int, position: Position, distFromPrevious: Double)
 
-  type Course = List[CheckPoint]
+  type Track = List[CheckPoint]
 
-  val period = 1 seconds
+  val period = 1 // in second
 
-  // Represent a Car at a specific point of the course
-  case class Car(label: String, point: CheckPoint = course.head, speed: Double, totalDist: Double, time: Long) {
+  // Represent a Car at a specific point of the track
+  case class Car(label: String, point: CheckPoint = track.head, speed: Double, totalDist: Double, time: Long) {
     def moveToCheckpoint(newPoint: CheckPoint) = {
       val t = System.currentTimeMillis - time
       val v = 3600 * newPoint.distFromPrevious / t
@@ -36,20 +36,20 @@ object Race {
     }
   }
 
-  // Load course from kml (list of checkpoints)
-  private lazy val course: Course = readCourse("public/tracks/LeMans.kml")
+  // Load track from kml (list of checkpoints)
+  private lazy val track: Track = readTrack("public/tracks/LeMans.kml")
 
-  lazy val lapLength: Double = lapLength(course)
+  lazy val lapLength: Double = lapLength(track)
 
-  def lapLength(course: Course) = course.map(checkPoint => checkPoint.distFromPrevious).sum
+  def lapLength(track: Track) = track.map(checkPoint => checkPoint.distFromPrevious).sum
 
 
-  // Get next checkpoint, based on course
+  // Get next checkpoint, based on track
   private def nextTrackPoint(point: CheckPoint) =
-    if (point.id + 1 >= course.size)
-      course.head // new lap
+    if (point.id + 1 >= track.size)
+      track.head // new lap
     else
-      course(point.id + 1)
+      track(point.id + 1)
 
   //return new CheckPoint on the track at distance d from point
   private def next(point: CheckPoint, distance: Double): CheckPoint = {
@@ -97,14 +97,14 @@ object Race {
   // An actor which moves a Car on the course, based on the stream
   class CarActor(carLabel: String) extends Actor {
 
-    private lazy val iterator = raceStream(Car(carLabel, course.head, 0, 0, System.currentTimeMillis)).iterator
+    private lazy val iterator = raceStream(Car(carLabel, track.head, 0, 0, System.currentTimeMillis)).iterator
     private var state: Car = null
 
     def receive = {
       // The race is starting!
       case "start" =>
         state = iterator.next
-        context.system.scheduler.schedule(period,period,self,"move") // Schedule each move of the car
+        context.system.scheduler.schedule(period seconds,period seconds,self,"move") // Schedule each move of the car
 
       // The car moves to a new point
       case "move" =>
