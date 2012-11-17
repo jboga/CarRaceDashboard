@@ -16,32 +16,24 @@ object Race {
 
   case class Position(latitude: Double, longitude: Double)
 
-  case class CheckPoint(id: Int, position: Position, distFromPrevious: Double)
+  case class CheckPoint(id: Int, position: Position)
 
   type Track = List[CheckPoint]
 
   val period = 1 // in second
 
   // Represent a Car at a specific point of the track
-  case class Car(label: String, point: CheckPoint = track.head, speed: Double, totalDist: Double, time: Long) {
-    def moveToCheckpoint(newPoint: CheckPoint) = {
-      val t = System.currentTimeMillis - time
-      val v = 3600 * newPoint.distFromPrevious / t
-      copy(
-        point = newPoint,
-        totalDist = totalDist + newPoint.distFromPrevious,
-        time = time + t,
-        speed = v
-      )
-    }
-  }
+  case class Car(label: String, point: CheckPoint = track.head, speed: Int, totalDist: Double)
 
   // Load track from kml (list of checkpoints)
   private lazy val track: Track = readTrack("public/tracks/LeMans.kml")
 
   lazy val lapLength: Double = lapLength(track)
 
-  def lapLength(track: Track) = track.map(checkPoint => checkPoint.distFromPrevious).sum
+  def lapLength(track: Track) =
+    (for{
+      List(p1,p2) <- track.sliding(2)
+    } yield computeDistance(p1.position,p2.position)).sum
 
 
   // Get next checkpoint, based on track
@@ -56,7 +48,7 @@ object Race {
     val nextPoint = nextTrackPoint(point)
     val distanceBetween = computeDistance(point.position, nextPoint.position)
     if (distance < distanceBetween)
-      CheckPoint(point.id, computePosition(point.position, nextPoint.position, distance), distance)
+      CheckPoint(point.id, computePosition(point.position, nextPoint.position, distance))
     else
       next(nextPoint, (distance - distanceBetween))
   }
@@ -85,10 +77,24 @@ object Race {
 
   // "Race" stream for a car. Each value is a state of the car `car` at a time t of the race.
   def raceStream(car: Car): Stream[Car] = {
-    def loop(prev: Car): Stream[Car] =
+    def loop(prev: Car): Stream[Car] = {
+      val speed = 
+        // Add/remove a random number to current speed, but with guard
+        prev.speed + randomInt(-10,10) match {
+          case s if s < 80  => 80
+          case s if s > 200 => 200
+          case s => s
+        }
+      val dist = speed * 1000 / 3600 * period // dist in m
+      val pos = next(prev.point, dist)
       prev #:: loop(
-        prev.moveToCheckpoint(next(prev.point, randomInt(41, 70)))
+        prev.copy(
+          point = pos,
+          totalDist = prev.totalDist + dist,
+          speed = speed
+        )
       )
+    }
     loop(car)
   }
 
@@ -97,7 +103,7 @@ object Race {
   // An actor which moves a Car on the course, based on the stream
   class CarActor(carLabel: String) extends Actor {
 
-    private lazy val iterator = raceStream(Car(carLabel, track.head, 0, 0, System.currentTimeMillis)).iterator
+    private lazy val iterator = raceStream(Car(carLabel, track.head, 130, 0)).iterator
     private var state: Car = null
 
     def receive = {

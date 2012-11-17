@@ -23,17 +23,7 @@ object TrackParser{
       val coordinates=pos.split(",")
       Position(coordinates(1).toDouble,coordinates(0).toDouble)
     }
-    positions.zipWithIndex.map{
-      case (position,index) if index==0 => CheckPoint(index,position,0)
-      case (position,index) => CheckPoint(index,position,distance(positions(index-1),position))
-    }
+    positions.zipWithIndex.map(v=>CheckPoint(v._2,v._1))
   }
 
-  // Compute the distance between two position
-  private def distance(pos1:Position,pos2:Position):Double=
-    acos(
-      sin(toRadians(pos1.latitude)) * sin(toRadians(pos2.latitude))
-      + cos(toRadians(pos1.latitude)) * cos(toRadians(pos2.latitude)) * cos(toRadians(pos1.longitude)
-      - toRadians(pos2.longitude))
-    ) * 6366000
 }
