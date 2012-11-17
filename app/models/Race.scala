@@ -41,7 +41,7 @@ object Race {
 
   lazy val lapLength: Double = lapLength(course)
 
-  def lapLength(course: Course) =course.map(checkPoint => checkPoint.distFromPrevious).sum
+  def lapLength(course: Course) = course.map(checkPoint => checkPoint.distFromPrevious).sum
 
 
   // Get next checkpoint, based on course
@@ -51,9 +51,9 @@ object Race {
     else
       course(point.id + 1)
 
-  private def next(point: CheckPoint, distance: Int): CheckPoint = {
+  private def next(point: CheckPoint, distance: Double): CheckPoint = {
     val nextPoint = next(point)
-    val distanceBetween = computeDistance(point.position, nextPoint.position).toInt
+    val distanceBetween = computeDistance(point.position, nextPoint.position)
     if (distance < distanceBetween)
       CheckPoint(point.id, computePosition(point.position, nextPoint.position, distance), distance)
     else
@@ -61,25 +61,25 @@ object Race {
   }
 
   // Compute the distance between two position
-  private def computeDistance(pos1: Position, pos2: Position): Double =
+  def computeDistance(pos1: Position, pos2: Position): Double =
     acos(
       sin(toRadians(pos1.latitude)) * sin(toRadians(pos2.latitude))
         + cos(toRadians(pos1.latitude)) * cos(toRadians(pos2.latitude)) * cos(toRadians(pos1.longitude)
         - toRadians(pos2.longitude))
     ) * 6366000
 
-  private def computePosition(point: Position, nextPoint: Position, distance: Int): Position = {
-    val precision = 5
+  def computePosition(point: Position, nextPoint: Position, distance: Double): Position = {
+    val precision = 1.0
     if (distance < precision)
       point
     else {
-      val distanceBetween = computeDistance(point, nextPoint).toInt
+      val distanceBetween = computeDistance(point, nextPoint)
       val middlePoint = Position((point.latitude + nextPoint.latitude) / 2, (point.longitude + nextPoint.longitude) / 2)
-      val d2: Int = distance / 2
-      if (d2 < distanceBetween)
-        computePosition(middlePoint, nextPoint, distanceBetween - d2)
+      val d2 = computeDistance(point, middlePoint)
+      if (d2 < distance)
+        computePosition(middlePoint, nextPoint, distance - d2)
       else
-        computePosition(point, nextPoint, d2 - distanceBetween)
+        computePosition(point, middlePoint, distance)
     }
   }
 
