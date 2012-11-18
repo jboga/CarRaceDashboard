@@ -26,7 +26,7 @@ class TrackView extends Backbone.View
     else
       markerOptions = {
         map: @theMap
-        icon: '/assets/images/map-icons/' + car.get('name') + '.png'
+        icon: car.get('iconUrl')
         position: carPos
         title: car.get('name')
       }

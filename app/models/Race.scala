@@ -7,16 +7,17 @@ import akka.actor._
 import akka.util.duration._
 import math._
 
-object Race{
+object Race {
 
   case class Position(latitude: Double, longitude: Double)
+
   case class CheckPoint(id: Int, position: Position)
 
   type Track = List[CheckPoint]
 
   case class Car(label: String, point: CheckPoint, speed: Int, totalDist: Double)
 
-  
+
   // Compute the distance between two position
   def computeDistance(pos1: Position, pos2: Position): Double =
     acos(
@@ -37,18 +38,18 @@ object Race{
 
 import models.Race._
 
-class Race(val trackURL:String){
+class Race(val trackURL: String) {
 
-  val track:Track=models.TrackParser.readTrack(trackURL)
+  val track: Track = models.TrackParser.readTrack(trackURL)
 
   val period = 1 // in second
 
   lazy val lapLength: Double = lapLength(track)
 
   def lapLength(track: Track) =
-    (for{
-      List(p1,p2) <- track.sliding(2)
-    } yield computeDistance(p1.position,p2.position)).sum
+    (for {
+      List(p1, p2) <- track.sliding(2)
+    } yield computeDistance(p1.position, p2.position)).sum
 
 
   // Get next checkpoint, based on track
@@ -59,29 +60,60 @@ class Race(val trackURL:String){
       track(point.id + 1)
 
   //return new CheckPoint on the track at distance d from point
-  private def next(point: CheckPoint, distance: Double): CheckPoint = {
+  private def next(point: CheckPoint, d: Double): CheckPoint = {
     val nextPoint = nextTrackPoint(point)
     val distanceBetween = computeDistance(point.position, nextPoint.position)
-    if (distance < distanceBetween)
-      CheckPoint(point.id, computePosition(point.position, nextPoint.position, distance))
+    if (d < distanceBetween)
+      CheckPoint(point.id, computePosition(point.position, nextPoint.position, d))
     else
-      next(nextPoint, (distance - distanceBetween))
+      next(nextPoint, (d - distanceBetween))
   }
 
-  // List of concurrents
-  private val cars = List(
-    "Car 1",
-    "Car 2",
-    "Car 3"
+  private val drivers = List(
+    "Michael Schumacher",
+    "Juan Manuel Fangio",
+    "Alain Prost",
+    "Jack Brabham",
+    "Niki Lauda",
+    "Nelson Piquet",
+    "Ayrton Senna",
+    "Jackie Stewart",
+    "Fernando Alonso",
+    "Alberto Ascari",
+    "Jim Clark",
+    "Emerson Fittipaldi",
+    "Mika HŠkkinen",
+    "Graham Hill",
+    "Sebastian Vettel",
+    "Mario Andretti",
+    "Jenson Button",
+    "Nino Farina",
+    "Lewis Hamilton",
+    "Mike Hawthorn",
+    "Damon Hill",
+    "Phil Hill",
+    "Denny Hulme",
+    "James Hunt",
+    "Alan Jones",
+    "Nigel Mansell",
+    "Kimi RŠikkšnen",
+    "Jochen Rindt",
+    "Keke Rosberg",
+    "Jody Scheckter",
+    "John Surtees",
+    "Jacques Villeneuve"
   )
+
+  // List of concurrents
+  private val cars = drivers.take(4)
 
   // "Race" stream for a car. Each value is a state of the car `car` at a time t of the race.
   def raceStream(car: Car): Stream[Car] = {
     def loop(prev: Car): Stream[Car] = {
-      val speed = 
-        // Add/remove a random number to current speed, but with guard
-        prev.speed + randomInt(-10,10) match {
-          case s if s < 80  => 80
+      val speed =
+      // Add/remove a random number to current speed, but with guard
+        prev.speed + randomInt(-10, 10) match {
+          case s if s < 80 => 80
           case s if s > 200 => 200
           case s => s
         }
@@ -110,7 +142,7 @@ class Race(val trackURL:String){
       // The race is starting!
       case "start" =>
         state = iterator.next
-        context.system.scheduler.schedule(period seconds,period seconds,self,"move") // Schedule each move of the car
+        context.system.scheduler.schedule(period seconds, period seconds, self, "move") // Schedule each move of the car
 
       // The car moves to a new point
       case "move" =>
