@@ -24,7 +24,8 @@ object Application extends Controller {
 
   def startRace = Action {request=>
     val formData=request.body.asFormUrlEncoded
-    val trackURL = 
+    val nbCars = formData.get("nbcarsgroup").head.toInt
+    val trackURL =
       (formData.get("track"), formData.get("trackURL")) match {
         case (url :: xs,_) if url.length > 0    => Some(url)
         case (_, url :: xs) if url.length > 0   => Some(url)
@@ -33,7 +34,7 @@ object Application extends Controller {
     trackURL.map{url=>
       currentRace match {
         case None =>
-          val race=new Race(url)
+          val race=new Race(url, nbCars)
 
           // Start the race
           race.actor ! "start"

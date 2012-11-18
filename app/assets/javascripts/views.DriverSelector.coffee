@@ -1,4 +1,4 @@
-class TrackSelectorView extends Backbone.View
+class DriverSelectorView extends Backbone.View
 
   el: '#carSel'
 
@@ -23,4 +23,4 @@ class TrackSelectorView extends Backbone.View
 
 window.app = window.app || {}
 window.app.views = window.app.views || {}
-window.app.views.TrackSelectorView = TrackSelectorView
+window.app.views.DriverSelectorView = DriverSelectorView

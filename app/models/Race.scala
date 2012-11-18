@@ -1,7 +1,5 @@
 package models
 
-import play.api.libs.iteratee._
-import play.api.libs.concurrent._
 import scala.util.Random
 import akka.actor._
 import akka.util.duration._
@@ -38,7 +36,7 @@ object Race {
 
 import models.Race._
 
-class Race(val trackURL: String) {
+class Race(val trackURL: String, val nbCars: Int) {
 
   val track: Track = models.TrackParser.readTrack(trackURL)
 
@@ -104,8 +102,11 @@ class Race(val trackURL: String) {
     "Jacques Villeneuve"
   )
 
-  // List of concurrents
-  private val cars = drivers.take(4)
+  // List of cars
+  private val cars = Random.shuffle(drivers).take(nbCars)
+
+  private val minSpeed = 150
+  private val maxSpeed = 260
 
   // "Race" stream for a car. Each value is a state of the car `car` at a time t of the race.
   def raceStream(car: Car): Stream[Car] = {
@@ -113,8 +114,8 @@ class Race(val trackURL: String) {
       val speed =
       // Add/remove a random number to current speed, but with guard
         prev.speed + randomInt(-10, 10) match {
-          case s if s < 80 => 80
-          case s if s > 200 => 200
+          case s if s < minSpeed => minSpeed
+          case s if s > maxSpeed => maxSpeed
           case s => s
         }
       val dist = speed * 1000 / 3600 * period // dist in m

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="org.mongodb_mongo-java-driver_2.8.0">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/play-2.0.4/repository/cache/org.mongodb/mongo-java-driver/jars/mongo-java-driver-2.8.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
