@@ -4,6 +4,7 @@ import org.specs2.mutable._
 
 import play.api.test._
 import play.api.test.Helpers._
+import models._
 import models.Race._
 import play.Logger
 import models.Race
