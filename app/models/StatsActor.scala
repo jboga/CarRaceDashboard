@@ -17,6 +17,10 @@ object StatsActor{
   // For each message, the actor computes the statistic (by using Mongo DB Aggregation Framework) and publishes a StatEvent on the eventStream
   val actor =  Akka.system.actorOf(Props(new Actor {
 
+    var stopAvg:Option[Cancellable]=None
+    var stopRank:Option[Cancellable]=None
+    var stopMax:Option[Cancellable]=None
+
     def receive = {
 
       case "avgSpeed"=>
@@ -60,9 +64,14 @@ object StatsActor{
 
 
       case "start" =>
-        context.system.scheduler.schedule(3 seconds,3 seconds,self,"ranking")
-        context.system.scheduler.schedule(5 seconds,5 seconds,self,"avgSpeed")
-        context.system.scheduler.schedule(7 seconds,7 seconds,self,"maxSpeed")
+        stopRank=Some(context.system.scheduler.schedule(3 seconds,3 seconds,self,"ranking"))
+        stopAvg=Some(context.system.scheduler.schedule(5 seconds,5 seconds,self,"avgSpeed"))
+        stopMax=Some(context.system.scheduler.schedule(7 seconds,7 seconds,self,"maxSpeed"))
+
+      case "stop" =>
+        stopRank.map(_.cancel)
+        stopAvg.map(_.cancel)
+        stopMax.map(_.cancel)
     }
 
 

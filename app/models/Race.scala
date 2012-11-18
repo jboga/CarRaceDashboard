@@ -4,17 +4,19 @@ import scala.util.Random
 import akka.actor._
 import akka.util.duration._
 import math._
+import play.api.libs.concurrent._
+import play.api.Play.current
+import play.api.libs.iteratee._
+
+case class Position(latitude: Double, longitude: Double)
+case class CheckPoint(id: Int, position: Position)
+case class Car(label: String, point: CheckPoint, speed: Int, totalDist: Double)
 
 object Race {
 
-  case class Position(latitude: Double, longitude: Double)
+  val period = 1 // in second
 
-  case class CheckPoint(id: Int, position: Position)
-
-  type Track = List[CheckPoint]
-
-  case class Car(label: String, point: CheckPoint, speed: Int, totalDist: Double)
-
+  val system = ActorSystem("RaceSystem")
 
   // Compute the distance between two position
   def computeDistance(pos1: Position, pos2: Position): Double =
@@ -31,16 +33,16 @@ object Race {
     Position(point1.latitude * (1 - ratio) + point2.latitude * ratio, point1.longitude * (1 - ratio) + point2.longitude * ratio)
   }
 
+  lazy val raceActor=system.actorOf(Props[RaceActor])
 
 }
 
-import models.Race._
-
 class Race(val trackURL: String, val nbCars: Int) {
+  import models.Race._
+
+  type Track = List[CheckPoint]
 
   val track: Track = models.TrackParser.readTrack(trackURL)
-
-  val period = 1 // in second
 
   lazy val lapLength: Double = lapLength(track)
 
@@ -103,7 +105,7 @@ class Race(val trackURL: String, val nbCars: Int) {
   )
 
   // List of cars
-  private val cars = Random.shuffle(drivers).take(nbCars)
+  val cars = Random.shuffle(drivers).take(nbCars)
 
   private val minSpeed = 150
   private val maxSpeed = 260
@@ -131,44 +133,82 @@ class Race(val trackURL: String, val nbCars: Int) {
     loop(car)
   }
 
-  val system = ActorSystem("RaceSystem")
-
-  // An actor which moves a Car on the course, based on the stream
-  class CarActor(carLabel: String) extends Actor {
-
-    private lazy val iterator = raceStream(Car(carLabel, track.head, 130, 0)).iterator
-    private var state: Car = null
-
-    def receive = {
-      // The race is starting!
-      case "start" =>
-        state = iterator.next
-        context.system.scheduler.schedule(period seconds, period seconds, self, "move") // Schedule each move of the car
-
-      // The car moves to a new point
-      case "move" =>
-        state = iterator.next
-
-      // Send the current car state to the sender
-      case "getState" => sender ! state
-    }
-  }
-
-  // An actor which represent the race, with a BroadcastRouter to fire "start" event on all cars.
-  val carActors = cars.map(car => system.actorOf(Props(new CarActor(car))))
-
-  val actor = system.actorOf(Props(new Actor {
-
-    val router = context.actorOf(Props[CarActor].withRouter(akka.routing.BroadcastRouter(carActors)))
-
-    def receive = {
-      // Let's go!
-      case "start" => router ! "start"
-    }
-  }))
+  val carActors = cars.map(car => system.actorOf(Props(new CarActor(car,this))))
 
   // Get a random int between from and to
   private def randomInt(from: Int, to: Int) = from + Random.nextInt(to - from)
 
+}
+
+// An actor which moves a Car on the track, based on the stream
+class CarActor(carLabel: String, race:Race) extends Actor {
+
+  private lazy val iterator = race.raceStream(Car(carLabel, race.track.head, 130, 0)).iterator
+  private var state:Option[Car] = None
+  private var stop:Option[Cancellable]=None
+
+  def receive = {
+    // The race is starting!
+    case "start" =>
+      state = Some(iterator.next)
+      stop = Some(
+        context.system.scheduler.schedule(Race.period seconds, Race.period seconds, self, "move") // Schedule each move of the car
+      )
+
+    // The car moves to a new point
+    case "move" =>
+      state = Some(iterator.next)
+
+    case "stop" =>
+      state = None
+      stop.map(_.cancel)
+
+    // Send the current car state to the sender
+    case "getState" => 
+      sender ! state
+  }
+
+}
+
+case class StartRace(trackURL:String, nbCars:Int)
+
+// An actor which represent the race, with a BroadcastRouter to fire "start" event on all cars.
+class  RaceActor extends Actor{
+
+  var currentRace:Option[Race]=None
+  var router:Option[ActorRef]=None
+
+  def receive = {
+    case StartRace(url,nbCars) => 
+      currentRace match {
+        case None => 
+          currentRace=Some(new Race(url,nbCars))
+          router = Some(context.actorOf(Props[CarActor].withRouter(akka.routing.BroadcastRouter(currentRace.get.carActors))))
+
+          // Fire start event
+          router.get ! "start"
+
+          // Start computing statistics
+          models.StatsActor.actor ! "start"
+
+          // Connect the event stream to the storage actor
+          new Streams(currentRace.get).events(Iteratee.foreach[models.Streams.Event] {
+            event => models.StorageActor.actor ! event
+          })
+
+          sender ! currentRace
+        case _ => 
+          sender ! None
+      }
+
+    case "stop" =>
+      router.map(_ ! "stop")
+      models.StatsActor.actor ! "stop"
+      currentRace = None
+      sender ! true
+
+    case "getRace" => 
+      sender ! currentRace
+  }
 
 }

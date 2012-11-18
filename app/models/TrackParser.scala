@@ -13,9 +13,9 @@ import java.io.File
 object TrackParser{
 
   // Read a Track from a kml (google maps) file
-  def readTrack(url:String):Track = readTrack(XML.load(url))
+  def readTrack(url:String):List[CheckPoint] = readTrack(XML.load(url))
 
-  def readTrack(data: Elem):Track = {
+  def readTrack(data: Elem):List[CheckPoint] = {
     val positions=(for {
       pos <- (data \\ "coordinates").text.split("\n")
       if (pos.trim.length>0)

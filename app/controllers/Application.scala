@@ -5,7 +5,6 @@ import play.api.libs.{EventSource, Comet}
 import play.api.mvc._
 import play.api.Play.current
 import akka.actor.{Actor, Props}
-import play.api.libs.iteratee.{PushEnumerator, Enumerator}
 import akka.pattern.ask
 import play.api.libs.concurrent._
 import akka.util.Timeout
@@ -20,9 +19,9 @@ import models.Race
 
 object Application extends Controller {
 
-  var currentRace:Option[Race]=None
+  implicit val timeout = Timeout(5 seconds)
 
-  def startRace = Action {request=>
+  def startRace = Action {request=> Async {
     val formData=request.body.asFormUrlEncoded
     val nbCars = formData.get("nbcarsgroup").head.toInt
     val trackURL =
@@ -31,40 +30,39 @@ object Application extends Controller {
         case (_, url :: xs) if url.length > 0   => Some(url)
         case _ => None
       }
-    trackURL.map{url=>
-      currentRace match {
-        case None =>
-          val race=new Race(url, nbCars)
+    trackURL match {
+      case Some(url) =>
+        // We have an url
+        (Race.raceActor ? models.StartRace(url,nbCars)).mapTo[Option[Race]].asPromise.map{
+          case Some(race) =>
+            // Race has been created!
 
-          // Start the race
-          race.actor ! "start"
-          // Compute statistics
-          models.StatsActor.actor ! "start"
-
-          // Connect the event stream to the storage actor
-          new Streams(race).events(Iteratee.foreach[Event] {
-            event =>
-              models.StorageActor.actor ! event
-          })
-
-          currentRace=Some(race)
-
-          Redirect("/")
-
-        case _ =>
-          // a race is already started
-          BadRequest(views.html.chooseRace(Some("""A race is in progress! <a href="/">Click here</a> to view the race.""")))
-      }
-    }.getOrElse(BadRequest(views.html.chooseRace(Some("Track is mandatory!"))))
-  }
+            // Redirect to live page
+            Redirect("/")
+          case None => 
+            // Already started...
+            BadRequest(views.html.chooseRace(Some("""A race is in progress! <a href="/">Click here</a> to view the race.""")))
+        }
 
 
-  def index = Action {
-    currentRace match {
-      case Some(race) => Ok(views.html.viewRace(race))
-      case None => Ok(views.html.chooseRace())
+      case _ => Promise.pure(BadRequest(views.html.chooseRace(Some("Track is mandatory!"))))
     }
-  }
+  }}
+
+  def stopRace = Action { Async{
+    (Race.raceActor ? "stop").mapTo[Boolean].asPromise.map(res=>Redirect("/"))
+  }}
+
+  def index = Action { Async {
+    (Race.raceActor ? "getRace").mapTo[Option[Race]].asPromise.map{
+      case Some(race) => 
+        // We have a race!
+        Ok(views.html.viewRace(race))
+      case None => 
+        // Not yet started : show the setup screen
+        Ok(views.html.chooseRace())
+    }
+  }}
 
   def rtEventSourceStream = Action {
     AsyncResult {

@@ -70,37 +70,43 @@ class Streams(race:Race) {
   val period = 1 seconds
 
   def position(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
-      Promise.timeout("",period).flatMap{str=>
-          (actor ? "getState").mapTo[Car].asPromise.map{car=>
-              Some(PositionEvent(
-                  car.label,
-                  car.point.position.latitude,
-                  car.point.position.longitude
-              ))
-          }
-      }
+    Promise.timeout("",period).flatMap{str=>
+      (actor ? "getState").mapTo[Option[Car]].asPromise.map(
+        _.map(car=>
+          PositionEvent(
+            car.label,
+            car.point.position.latitude,
+            car.point.position.longitude
+          )
+        )
+      )
+    }
   }
 
   def distance(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
-      Promise.timeout("",period).flatMap{str=>
-          (actor ? "getState").mapTo[Car].asPromise.map{car=>
-              Some(DistEvent(
-                  car.label,
-                  car.totalDist
-              ))
-          }
-      }
+    Promise.timeout("",period).flatMap{str=>
+      (actor ? "getState").mapTo[Option[Car]].asPromise.map(
+        _.map(car=>
+          DistEvent(
+            car.label,
+            car.totalDist
+          )
+        )
+      )
+    }
   }
 
   def speed(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
-      Promise.timeout("",period).flatMap{str=>
-          (actor ? "getState").mapTo[Car].asPromise.map{car=>
-              Some(SpeedEvent(
-                  car.label,
-                  car.speed.toInt
-              ))
-          }
-      }
+    Promise.timeout("",period).flatMap{str=>
+      (actor ? "getState").mapTo[Option[Car]].asPromise.map(
+        _.map(car=>
+          SpeedEvent(
+            car.label,
+            car.speed.toInt
+          )
+        )
+      )
+    }
   }
   
   // We interleave enumerators for all actors to obtain a stream with all cars for each event type
