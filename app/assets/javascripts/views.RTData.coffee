@@ -1,6 +1,15 @@
 class RTDataView extends Backbone.View
 
   el: '#rtdata'
+  speedGauge: null
+  odo: null
+  lapCounter: null
+  driverSel: null
+  lapDistance: 0
+  driver: null
+
+  events:
+    "click a": 'changeSelection'
 
   initialize: ()->
     @speedGauge = new jGauge()
@@ -26,33 +35,45 @@ class RTDataView extends Backbone.View
     @speedGauge.ticks.color = 'rgba(0, 0, 0, 0)'
     @speedGauge.range.color = 'rgba(0, 0, 0, 0)'
     @speedGauge.init()
-    @ctx = $('#distance')[0].getContext('2d')
-    @odo = new odometer(@ctx, {
-      height: 40
-      digits: 5
-      decimals: 1
-      value: 0
-      wobbleFactor: 0.07
+    ctx = $('#distance')[0].getContext('2d')
+    @odo = new odometer(ctx, {
+    height: 40
+    digits: 5
+    decimals: 1
+    value: 0
+    wobbleFactor: 0.07
     })
     @lapCounter = new flipCounter('lapCounter', {value: 0})
-    @titleEl = $(@el).find('h2[id=title]')
     @lapDistance = trackLength
+    @label = $(@el).find('button[id=driverSelLabel]')
+    @driverSel = $(@el).find('ul[id=driverSel]')
+    @model.on('add', @addAll)
 
-  changeModel: (car)=>
-    @model = car
-    @titleEl.text('Real Time Data : ' + car.get('name'))
+  addAll: ()=>
+    @driverSel.html('')
+    @addOne driver for driver in @model.models
+
+  addOne: (driver)=>
+    @driverSel.append('<li><a href="#" name="' + driver.get('name') + '">' + driver.get('name') + '</a></li>')
+
+  changeSelection: (event)->
+    driverName = event.srcElement.name
+    driver = _.find(@model.models, (aDrv)-> aDrv.get('name') is driverName)
+    @changeSelectedDriver(driver)
+
+  changeSelectedDriver: (selDriver)=>
+    if @driver
+      @driver.off('change', @updateRTData)
+    @driver = selDriver
+    @label.text(selDriver.get('name'))
     @updateRTData()
-    @model.on('change', @updateRTData)
+    @driver.on('change', @updateRTData)
 
   updateRTData: ()=>
-    @speedGauge.setValue(@model.get('speed'))
-    @odo.setValue(@model.get('dist'))
-    lap = Math.floor(1 + @model.get('dist') / @lapDistance)
+    @speedGauge.setValue(@driver.get('speed'))
+    @odo.setValue(@driver.get('dist'))
+    lap = Math.floor(1 + @driver.get('dist') / @lapDistance)
     @lapCounter.setValue(lap)
-
-  updateRTEvent: (event)=>
-    @model.set(event.type, event.value)
-
 
 window.app = window.app || {}
 window.app.views = window.app.views || {}

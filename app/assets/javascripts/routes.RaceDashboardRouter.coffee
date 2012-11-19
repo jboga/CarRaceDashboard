@@ -4,8 +4,7 @@ class RaceDashboardRouter extends Backbone.Router
     @cars = new Backbone.Collection()
     @cars.comparator = (car)-> car.get('rank')
     @trackView = new app.views.TrackView(model: @cars)
-    @carSel = new app.views.DriverSelectorView(model: @cars)
-    @rtDataView = new app.views.RTDataView()
+    @rtDataView = new app.views.RTDataView(model: @cars)
     @statView = new app.views.StatDataView(model: @cars)
     @bind("rtevent", @newEvent, @)
 
@@ -13,8 +12,7 @@ class RaceDashboardRouter extends Backbone.Router
     "": "index"
 
   index: ()->
-#    app.collections.Colls.fetch()
-#    @collListView.addAll()
+#    Empty here
 
   newEvent: (event)->
     car = _.find(@cars.models,(each)-> event.car is each.get('name'))
