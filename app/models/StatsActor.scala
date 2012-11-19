@@ -72,6 +72,7 @@ object StatsActor{
         stopRank.map(_.cancel)
         stopAvg.map(_.cancel)
         stopMax.map(_.cancel)
+        connection("events").dropCollection
     }
 
 
