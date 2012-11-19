@@ -15,14 +15,15 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="#">Car Race Dashboard</a>
-            <div class="form-horizontal control-group">
-                <div class="btn-group pull-right">
+            <div class="form-horizontal control-group pull-right">
+                <div class="btn-group">
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                         Select a driver <span class="caret"></span>
                     </button>
                     <ul id="carSel" class="dropdown-menu">
                     </ul>
                 </div>
+                <a href="@routes.Application.stopRace" class="btn btn-danger">Stop race</a>
             </div>
         </div>
     </div>
