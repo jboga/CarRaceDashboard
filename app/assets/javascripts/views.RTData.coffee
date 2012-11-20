@@ -10,7 +10,6 @@ class RTDataView extends Backbone.View
 
   events:
     "click a": 'changeSelection'
-    "tap a": 'changeSelection'
 
   initialize: ()->
     @speedGauge = new jGauge()
@@ -55,7 +54,7 @@ class RTDataView extends Backbone.View
     @addOne driver for driver in @model.models
 
   addOne: (driver)=>
-    @driverSel.append('<li><a href="#" name="' + driver.get('name') + '">' + driver.get('name') + '</a></li>')
+    @driverSel.append('<li><a href="#" ontouchend="window.app.routers.RaceDashboardRouter.rtDataView.changeSelection(event)" name="' + driver.get('name') + '">' + driver.get('name') + '</a></li>')
 
   changeSelection: (event)->
     driverName = event.srcElement.name
