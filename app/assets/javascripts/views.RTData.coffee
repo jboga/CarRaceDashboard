@@ -10,7 +10,7 @@ class RTDataView extends Backbone.View
 
   events:
     "click a": 'changeSelection'
-    "touchend a": 'changeSelection'
+    "tap a": 'changeSelection'
 
   initialize: ()->
     @speedGauge = new jGauge()
