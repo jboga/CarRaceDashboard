@@ -32,11 +32,27 @@ For the purpose of the demonstration the application is divided is two parts:
 Benefits and drawback
 ~~~~~~~~~~~~~~~~~~~~
 
-*TO BE COMPLETED*
+The major benefit of this application is that it can display real time information in a standard web browser
+without requiring polling. All information are updated as soon as they change on the server.
 
+The current implementation is not completely optimised in terms of communication between client and server.
+For example, the speed, distance and position informations are pushed separately for the same car, even if
+we know that when one changes, the two other change too. We can optimize by sending all three info in the same
+event, but we found this implementation more elegant for the purpose of this contest.
+
+Even if it is not useful for a real use of this application, we found **the race simulation part a good use case
+to show the benefit of using Scala and Akka.**
 
 High level design and architecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Race Dashboard
+--------------
+
+*TO BE COMPLETED*
+
+Race Simulation
+---------------
 
 *TO BE COMPLETED*
 
