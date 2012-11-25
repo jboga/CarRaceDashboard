@@ -64,6 +64,8 @@ object Application extends Controller {
     }
   }}
 
+  ind(rt)
+
   def rtEventSourceStream = Action {
     AsyncResult {
       implicit val timeout = Timeout(5.seconds)
