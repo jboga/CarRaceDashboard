@@ -7,7 +7,7 @@ import play.api.libs.concurrent.Akka
 import play.api.Play.current
 import play.api.Logger
 import akka.util.duration._
-import models.Streams._
+import models.Events._
 
 object StatsActor{
 

@@ -46,18 +46,41 @@ to show the benefit of using Scala and Akka.**
 High level design and architecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Race Dashboard
---------------
+The application is divided into 2 logical parts:
 
-*TO BE COMPLETED*
+- The simulation part, which produces events based on a random-but-realistic implementation
+- The dashboard part, which retrieves these events, and publishes them in real time to a web interface
+
+In a real world application, the simulation part will be replaced by real-time datas coming from physical captors in each cars by example. The aim of the simulation part is to generate a lot of events (instant speed, position, ...).
+
 
 Race Simulation
 ---------------
 
-*TO BE COMPLETED*
+The race simulation code is defined in the "simulation" package. 
+There are 3 main components : 
 
+- A parser of KML files : this class reads a KML file and transforms it to a list of points. This list is used by the simulation code to get positions of cars in the track.
+- A list of actors (one for each car in the race), which are scheduled at fixed rate and compute the new position of the car. This position is computed by adding or removing a random number to the current car's speed.
+- A list of Enumerators, which retrieves the state of each cars and produces different types of events (position event, speed event, ...). All these enumerators of events are interleaved in a global eumerator, which produces all event types for all cars.
+
+Race Dashboard
+--------------
+
+This part contains two global actors. The first one is the Storage Actor which is connected to the global enumerator described above. For each event in this stream, a message is sent to the Storage Actor. It stores the data of the event in a Mongo database for later use, and publishes this event to the Actors eventStream.
+
+The second actor is scheduled at fixed rate. It compute some statistics (max speed, average speed, ...) with queries in the Mongo database and publishes these results to the Actor eventStream.
+
+Finally, we have also in this part the web interface and controllers which come with. Some methods of the controller are used to manage the simulation (start a new race, stop the current race). One method is called to render the web interface. Another is used as a Event Source for a Server Sent Events stream open by the web client. In this method, a new Actor is instanciated for each web client who connects to the race. This actor is a listener, which is subscribed to the eventStream and publishes a JSONified message to the SSE socket for each received event.
 
 Instructions
 ~~~~~~~~~~~~
 
-*TO BE COMPLETED*
+The application needs a MongoDB  server (latest release 2.2.1) running at localhost on the default port (27017).
+To start the application locally, type the following line in the root directory of the application : ::
+
+  sbt run
+
+The application is now available on http://localhost:9000
+
+Another way to test the application is to go to the public demo at http://carracedashboard.trustedpaas.lu

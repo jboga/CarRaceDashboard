@@ -1,4 +1,4 @@
-package models
+package simulation
 
 import scala.util.Random
 import akka.actor._
@@ -38,11 +38,11 @@ object Race {
 }
 
 class Race(val trackURL: String, val nbCars: Int) {
-  import models.Race._
+  import simulation.Race._
 
   type Track = List[CheckPoint]
 
-  val track: Track = models.TrackParser.readTrack(trackURL)
+  val track: Track = simulation.TrackParser.readTrack(trackURL)
 
   lazy val lapLength: Double = lapLength(track)
 
@@ -192,7 +192,7 @@ class  RaceActor extends Actor{
           models.StatsActor.actor ! "start"
 
           // Connect the event stream to the storage actor
-          new Streams(currentRace.get).events(Iteratee.foreach[models.Streams.Event] {
+          new Streams(currentRace.get).events(Iteratee.foreach[models.Events.Event] {
             event => models.StorageActor.actor ! event
           })
 

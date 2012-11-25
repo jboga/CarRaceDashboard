@@ -11,16 +11,31 @@ import akka.util.Timeout
 import play.api.libs.json.Json._
 import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
-import scala.Predef._
-import models.Streams
-import models.Streams.Event
+import models.Events._
 import play.Logger
-import models.Race
+import simulation.Race
 
 object Application extends Controller {
 
   implicit val timeout = Timeout(5 seconds)
 
+  // Index of the application. We check if a race is already started (by calling the RaceActor)
+  // - if a race exists, we display the dashboard screen
+  // - if not, we display the screen to create a new race
+  def index = Action { Async {
+    (Race.raceActor ? "getRace").mapTo[Option[Race]].asPromise.map{
+      case Some(race) => 
+        // We have a race!
+        Ok(views.html.viewRace(race.trackURL,race.lapLength))
+      case None => 
+        // Not yet started : show the setup screen
+        Ok(views.html.chooseRace())
+    }
+  }}
+
+  // Start controller, it will start a new race
+  // It retrieves input parameters, validates them and starts a new race by calling the RaceActor
+  // If OK, it redirects to the Index controller
   def startRace = Action {request=> Async {
     val formData=request.body.asFormUrlEncoded
     val nbCars = formData.get("nbcarsgroup").head.toInt
@@ -33,7 +48,7 @@ object Application extends Controller {
     trackURL match {
       case Some(url) =>
         // We have an url
-        (Race.raceActor ? models.StartRace(url,nbCars)).mapTo[Option[Race]].asPromise.map{
+        (Race.raceActor ? simulation.StartRace(url,nbCars)).mapTo[Option[Race]].asPromise.map{
           case Some(race) =>
             // Race has been created!
 
@@ -49,23 +64,12 @@ object Application extends Controller {
     }
   }}
 
+  // Stop a race, by sending the "stop" message to the RaceActor
   def stopRace = Action { Async{
     (Race.raceActor ? "stop").mapTo[Boolean].asPromise.map(res=>Redirect("/"))
   }}
 
-  def index = Action { Async {
-    (Race.raceActor ? "getRace").mapTo[Option[Race]].asPromise.map{
-      case Some(race) => 
-        // We have a race!
-        Ok(views.html.viewRace(race))
-      case None => 
-        // Not yet started : show the setup screen
-        Ok(views.html.chooseRace())
-    }
-  }}
-
-  ind(rt)
-
+  // Live publishes events with SSE stream
   def rtEventSourceStream = Action {
     AsyncResult {
       implicit val timeout = Timeout(5.seconds)
@@ -80,6 +84,8 @@ object Application extends Controller {
   }
 }
 
+// An actor, instanciated for each web client with the SSE stream, which is subscribed to the Akka eventStream 
+// and pushes a JSON event for each event in the eventStream
 class RTEventListener extends Actor {
   lazy val channel: PushEnumerator[JsValue] = Enumerator.imperative[JsValue](
     onComplete = {

@@ -1,7 +1,5 @@
-import models.Streams.{PositionEvent, DistEvent, SpeedEvent, Event}
 import play.api._
-import akka.actor._
-import akka.actor.{Actor, Props}
+import akka.actor.ActorSystem
 
 object Global extends GlobalSettings {
 

@@ -1,6 +1,6 @@
-package models
+package simulation
 
-import models.Race._
+import simulation.Race._
 import scala.math._
 import scala.xml._
 import play.api.Play

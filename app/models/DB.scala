@@ -5,6 +5,7 @@ import play.api.Play._
 
 object DB {
 
+  // Get a connection to the MongoDB
   lazy val connection =
     configuration.getString("mongo.user").flatMap{username=>configuration.getString("mongo.password").flatMap{password=>Some(username,password)}}
       .map{credentials=>
@@ -15,7 +16,7 @@ object DB {
         MongoConnection(
           configuration.getString("mongo.host").getOrElse("127.0.0.1"),
           configuration.getInt("mongo.port").getOrElse(27017)
-        )(configuration.getString("mongo.dbname").getOrElse("todos"))
+        )(configuration.getString("mongo.dbname").getOrElse("race"))
       )
 
 }

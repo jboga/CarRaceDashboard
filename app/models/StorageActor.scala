@@ -3,11 +3,13 @@ package models
 import akka.actor._
 import models.DB._
 import com.mongodb.casbah.Imports._
-import models.Streams._
+import models.Events._
 import play.api.Logger
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
 
+// This actor receives each event and stores them in MongoDB for later use (statistics)
+// It publishes each event in the eventStream for other subscribed listeners
 object StorageActor{
 	
   val logger=Logger("actor-storage")
@@ -43,7 +45,7 @@ object StorageActor{
     }
 
     override def preStart={
-      // Clean collection
+      // Clean collection on startup
       connection("events").dropCollection
     }
 
