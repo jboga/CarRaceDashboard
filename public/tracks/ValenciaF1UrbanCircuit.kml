@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>Valencia F1 Urban Circuit</name>
+  <description><![CDATA[Circuito urbano de F1 Valencia, diseñado por Hermann Tilke.
+Valencia F1 urban Circuit, designed by Hermann Tilke.
+
+Longitud (Length): 5473 m. (3,4 miles)
+Dirección (Direction): Derecha (Clockwise)
+Curvas (Curves): 14 derecha (right), 11 izquierda  (left).
+Recta más larga (Longest straight): +-1000 m.
+
+Velocidad mínima (Min. speed): 95 km/h. (59 mph)
+Velocidad media (Avg. speed): 201 km/h (125 mph)
+Velocidad máxima (Max. speed): 323 km/h. (200,7 mph)
+Tiempo por vuelta (Lap time): 1' 37''
+
+Plazas (Seats): 100,000 - 150,000
+
+Inicio de construcción (Building Start date): 10/2007.
+Fin de construcción (Building End date): 05/2008.
+Primera carrera (First race): G.P. de Europa (European G.P.), 24/08/2008
+
+ValenciaF1.blogspot.com]]></description>
+  
+  <Placemark>
+    <name>Valencia F1 Urban Circuit</name>
+    <description><![CDATA[<font size="4">Circuito urbano de F1 Valencia, <font size="2">diseñado por <a href="http://http://es.wikipedia.org/wiki/Hermann_Tilke" target="_blank">Hermann Tilke</a>.</font><br>
+<span style="font-style:italic">Valencia F1 urban Circuit, <font size="2">designed by <a href="http://en.wikipedia.org/wiki/Hermann_Tilke" target="_blank">Hermann Tilke</a>.</font></span></font><br><br><span style="font-weight:bold">Longitud</span> <span style="font-weight:bold">(</span><span style="font-style:italic;font-weight:bold">Length)</span><span style="font-weight:bold">:</span> 5473 m. <span style="font-style:italic">(3,4 miles)</span><br><span style="font-weight:bold">Dirección</span> <span style="font-weight:bold">(</span><span style="font-style:italic;font-weight:bold">Direction)</span>: Derecha <span style="font-style:italic">(Clockwise)</span><br><span style="font-weight:bold">Curvas</span> <span style="font-style:italic"><span style="font-weight:bold">(</span></span><span style="font-style:italic;font-weight:bold">Curves)</span>: 14 derecha (<span style="font-style:italic">right)</span>, 11 izquierda&nbsp; (<span style="font-style:italic">left)</span>.<br><span style="font-weight:bold">Recta más larga </span><span style="font-style:italic;font-weight:bold">(Longest straight)</span>: +-1000 m.<br><br><span style="font-weight:bold">Velocidad mínima <span style="font-style:italic">(Min. speed)</span></span>: 95 km/h. <span style="font-style:italic">(59 mph)</span><br><span style="font-weight:bold">Velocidad media <span style="font-style:italic">(Avg. speed)</span></span>: 201 km/h <span style="font-style:italic">(125 mph)</span><br><span style="font-weight:bold">Velocidad máxima </span><span style="font-style:italic;font-weight:bold">(Max. speed)</span>: 323 km/h. <span style="font-style:italic">(200,7 mph)<br></span><span style="font-weight:bold">Tiempo por vuelta</span><span style="font-style:italic"><span style="font-weight:bold"> (Lap time)</span>: </span>1' 37''<br><br><span style="font-style:italic"></span><span style="font-weight:bold">Plazas </span><span style="font-style:italic;font-weight:bold">(Seats)</span>: 100,000 - 150,000<br><br><span style="font-weight:bold">Inicio de construcción </span><span style="font-style:italic;font-weight:bold">(Building Start date)</span>: 10/2007.<br><span style="font-weight:bold">Fin de construcción </span><span style="font-style:italic;font-weight:bold">(Building End date)</span>: 05/2008.<br><span style="font-weight:bold">Primera carrera </span><span style="font-style:italic;font-weight:bold">(First race)</span>: G.P. de Europa <span style="font-style:italic">(European G.P.),</span> 24/08/2008<br><br><font size="4"><a href="http://ValenciaF1.blogspot.com" target="_blank">ValenciaF1.blogspot.com</a></font>]]></description>
+    <LineString>
+      <tessellate>1</tessellate>
+      <coordinates>
+            -0.320910,39.462639,0.000000
+            -0.320492,39.460407,0.000000
+            -0.320556,39.460327,0.000000
+            -0.320685,39.460278,0.000000
+            -0.321012,39.460258,0.000000
+            -0.321554,39.460312,0.000000
+            -0.322069,39.460327,0.000000
+            -0.322557,39.460213,0.000000
+            -0.322852,39.460083,0.000000
+            -0.323088,39.459927,0.000000
+            -0.324478,39.458725,0.000000
+            -0.328780,39.454762,0.000000
+            -0.329016,39.454498,0.000000
+            -0.329129,39.454403,0.000000
+            -0.329268,39.454353,0.000000
+            -0.329383,39.454388,0.000000
+            -0.329456,39.454460,0.000000
+            -0.329501,39.454655,0.000000
+            -0.329702,39.455147,0.000000
+            -0.329788,39.455219,0.000000
+            -0.329871,39.455223,0.000000
+            -0.329952,39.455204,0.000000
+            -0.330024,39.455177,0.000000
+            -0.330078,39.455105,0.000000
+            -0.330177,39.454876,0.000000
+            -0.330322,39.454647,0.000000
+            -0.330727,39.454163,0.000000
+            -0.330834,39.454128,0.000000
+            -0.330958,39.454128,0.000000
+            -0.331113,39.454178,0.000000
+            -0.331247,39.454273,0.000000
+            -0.332160,39.454819,0.000000
+            -0.332921,39.455074,0.000000
+            -0.333770,39.455261,0.000000
+            -0.333914,39.455334,0.000000
+            -0.334002,39.455433,0.000000
+            -0.334058,39.455486,0.000000
+            -0.334142,39.455517,0.000000
+            -0.334793,39.455429,0.000000
+            -0.337143,39.455036,0.000000
+            -0.339688,39.454609,0.000000
+            -0.340426,39.454544,0.000000
+            -0.340533,39.454578,0.000000
+            -0.340619,39.454632,0.000000
+            -0.340678,39.454716,0.000000
+            -0.340683,39.454811,0.000000
+            -0.340603,39.454906,0.000000
+            -0.340490,39.454971,0.000000
+            -0.339793,39.455231,0.000000
+            -0.338897,39.455723,0.000000
+            -0.338870,39.456169,0.000000
+            -0.338758,39.457249,0.000000
+            -0.338618,39.457439,0.000000
+            -0.338543,39.457478,0.000000
+            -0.338463,39.457527,0.000000
+            -0.338361,39.457535,0.000000
+            -0.338216,39.457493,0.000000
+            -0.338114,39.457424,0.000000
+            -0.337921,39.457294,0.000000
+            -0.337551,39.456966,0.000000
+            -0.335893,39.456436,0.000000
+            -0.334697,39.456055,0.000000
+            -0.334598,39.456005,0.000000
+            -0.334579,39.456001,0.000000
+            -0.334571,39.455986,0.000000
+            -0.334528,39.455978,0.000000
+            -0.334466,39.455959,0.000000
+            -0.334356,39.455990,0.000000
+            -0.334233,39.456039,0.000000
+            -0.334166,39.456051,0.000000
+            -0.334069,39.456047,0.000000
+            -0.333967,39.456001,0.000000
+            -0.333906,39.455952,0.000000
+            -0.333863,39.455860,0.000000
+            -0.333817,39.455780,0.000000
+            -0.333763,39.455727,0.000000
+            -0.333702,39.455708,0.000000
+            -0.333643,39.455696,0.000000
+            -0.332294,39.455772,0.000000
+            -0.330754,39.455791,0.000000
+            -0.330507,39.455864,0.000000
+            -0.330429,39.455940,0.000000
+            -0.330362,39.456020,0.000000
+            -0.330341,39.456116,0.000000
+            -0.330349,39.456165,0.000000
+            -0.330395,39.456242,0.000000
+            -0.330596,39.456528,0.000000
+            -0.331180,39.457111,0.000000
+            -0.331690,39.457779,0.000000
+            -0.332570,39.459419,0.000000
+            -0.332630,39.459949,0.000000
+            -0.332280,39.460499,0.000000
+            -0.330600,39.461910,0.000000
+            -0.330200,39.462151,0.000000
+            -0.329950,39.462139,0.000000
+            -0.329536,39.461800,0.000000
+            -0.329426,39.461765,0.000000
+            -0.329319,39.461742,0.000000
+            -0.328820,39.461746,0.000000
+            -0.328292,39.461735,0.000000
+            -0.326700,39.461601,0.000000
+            -0.326560,39.461700,0.000000
+            -0.326510,39.462181,0.000000
+            -0.326310,39.462311,0.000000
+            -0.324910,39.462231,0.000000
+            -0.324558,39.462307,0.000000
+            -0.324080,39.462120,0.000000
+            -0.322970,39.462509,0.000000
+            -0.321540,39.462662,0.000000
+            -0.320910,39.462639,0.000000
+          </coordinates>
+        </LineString>
+      
+  </Placemark>
+</Document>
+</kml>
