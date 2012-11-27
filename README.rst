@@ -23,6 +23,8 @@ The application has been written as generically as possible.
   - Running,
   - Biking,
   - etc...
+  We plan to develop an iPhone app that will send position, distance and speed information to our application
+  and we will use it to follow a famous moutain bike race in our region (http://www.24hvttcrapauds.eu/cms/index.php/24h-vtt-les-crapauds.html)
 
 For the purpose of the demonstration the application is divided is two parts:
 
@@ -37,11 +39,11 @@ without requiring polling. All information are updated as soon as they change on
 
 The current implementation is not completely optimised in terms of communication between client and server.
 For example, the speed, distance and position informations are pushed separately for the same car, even if
-we know that when one changes, the two other change too. We can optimize by sending all three info in the same
+we know that when one changes, the two other change too. We could optimize by sending all three info in the same
 event, but we found this implementation more elegant for the purpose of this contest.
 
-Even if it is not useful for a real use of this application, we found **the race simulation part a good use case
-to show the benefit of using Scala and Akka.**
+Even if it is not useful for a real use, we found **the race simulation part a good use case to show the
+benefit of using Scala and Akka.**
 
 High level design and architecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,7 +53,8 @@ The application is divided into 2 logical parts:
 - The simulation part, which produces events based on a random-but-realistic implementation
 - The dashboard part, which retrieves these events, and publishes them in real time to a web interface
 
-In a real world application, the simulation part will be replaced by real-time datas coming from physical captors in each cars by example. The aim of the simulation part is to generate a lot of events (instant speed, position, ...).
+In a real world application, the simulation part will be replaced by real-time datas coming from physical
+captors in each cars by example. The aim of the simulation part is to generate a lot of events (instant speed, position, ...).
 
 
 Race Simulation
@@ -76,11 +79,14 @@ Finally, we have also in this part the web interface and controllers which come 
 Instructions
 ~~~~~~~~~~~~
 
-The application needs a MongoDB  server (latest release 2.2.1) running at localhost on the default port (27017).
+The application needs a MongoDB server (latest release 2.2.1) running at localhost on the default port (27017).
 To start the application locally, type the following line in the root directory of the application : ::
 
   sbt run
 
 The application is now available on http://localhost:9000
 
-Another way to test the application is to go to the public demo at http://carracedashboard.trustedpaas.lu
+Another way to test the application is to go to the public demo at http://carracedashboard.trustedpaas.lu.
+Don't forget to stop the race if you use the public link to test the application.
+
+**HAVE A GOOD RACE**
