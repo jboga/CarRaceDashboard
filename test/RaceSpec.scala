@@ -5,6 +5,7 @@ import org.specs2.mutable._
 import play.api.test._
 import play.api.test.Helpers._
 import models._
+import simulation.Race._
 import play.Logger
 import simulation._
 import util.Random
