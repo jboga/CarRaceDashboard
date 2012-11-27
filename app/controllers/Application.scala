@@ -39,14 +39,8 @@ object Application extends Controller {
   def startRace = Action {request=> Async {
     val formData=request.body.asFormUrlEncoded
     val nbCars = formData.get("nbcarsgroup").head.toInt
-    val trackURL =
-      (formData.get("track"), formData.get("trackURL")) match {
-        case (url :: xs,_) if url.length > 0    => Some(url)
-        case (_, url :: xs) if url.length > 0   => Some(url)
-        case _ => None
-      }
-    trackURL match {
-      case Some(url) =>
+    formData.get("track") match {
+      case url :: xs if url.length>0 =>
         // We have an url
         (Race.raceActor ? simulation.StartRace(url,nbCars)).mapTo[Option[Race]].asPromise.map{
           case Some(race) =>
