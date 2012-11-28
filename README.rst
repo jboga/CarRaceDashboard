@@ -81,6 +81,7 @@ This part contains two global actors. The first one is the Storage Actor which i
 The second actor is scheduled at fixed rate. It compute some statistics (max speed, average speed, ...) with queries in the Mongo database and publishes these results to the Actor eventStream.
 
 Finally, we have also in this part the web interface and controllers which come with. Some methods of the controller are used to manage the simulation (start a new race, stop the current race). One method is called to render the web interface. Another is used as a Event Source for a Server Sent Events stream open by the web client. In this method, a new Actor is instanciated for each web client who connects to the race. This actor is a listener, which is subscribed to the eventStream and publishes a JSONified message to the SSE socket for each received event.
+All events that are received by the dashboard are displayed in the console in development mode. In production, the events are not displayed.
 
 Instructions
 ~~~~~~~~~~~~
