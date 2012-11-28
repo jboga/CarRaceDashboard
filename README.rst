@@ -29,7 +29,7 @@ The application has been written as generically as possible.
 For the purpose of the demonstration the application is divided is two parts:
 
 - The Real Time Dashboard itself
-- The car race simulation that aims to be as realistic has possible.
+- The car race simulation that aims to be as realistic has possible while remaining simple.
 
 Benefits and drawback
 ~~~~~~~~~~~~~~~~~~~~
@@ -42,8 +42,10 @@ For example, the speed, distance and position informations are pushed separately
 we know that when one changes, the two other change too. We could optimize by sending all three info in the same
 event, but we found this implementation more elegant for the purpose of this contest.
 
-Even if it is not useful for a real use, we found **the race simulation part a good use case to show the
-benefit of using Scala and Akka.**
+Even if it is quite simple and not useful for a real use, we found **the race simulation part a good use case to show the
+benefit of using Scala and Akka.** To make it realistic, we have selected a min speed and a max speed and the speed of
+each vehicle vary between both values. We didn't took care of the track configuration and it may happen that a
+car take a tight turn at 200km/h.
 
 High level design and architecture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

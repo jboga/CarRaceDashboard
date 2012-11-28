@@ -62,11 +62,9 @@
                             <div class="controls">
                                 <select name="track">
                                     <option value=""></option>
-                                    <option value="http://www.comintech.net/kml/LeMans.kml">Le Mans</option>
-                                    <option value="http://www.comintech.net/kml/Monaco.kml">Monaco</option>
-                                    <option value="http://www.comintech.net/kml/ValenciaF1UrbanCircuit.kml">Valencia</option>
-                                    <option value="http://www.comintech.net/kml/CircuitdeFrancorchamps.kml">Spa Francorchamps</option>
-                                    <option value="http://www.comintech.net/kml/Road_Atlanta.kml">Atlanta</option>
+                                    @simulation.TrackParser.tracks.map{ pair =>
+                                    <option value="@pair._1">@pair._2</option>
+                                    }
                                 </select>
                             </div>
                         </div>
