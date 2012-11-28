@@ -7,7 +7,8 @@ CarRaceDashBoard - Real Time Race Visualisation
 Project Objectives
 ~~~~~~~~~~~~~~~~~
 
-This project has been developed by Antoine Detante (@antoined) and Fabrice Croiseaux (@fXzo) for the purpose 
+This project has been developed by Antoine Detante `(@antoined) <http://twitter.com/antoined>`_ and
+Fabrice Croiseaux `(@fXzo) <http://twitter.com/fXzo>`_ for the purpose 
 of the Typesafe Developer Contest (see details at http://typesafe.com/resources/developer-contest)
 
 The goal of the project is to **follow the competitors of a race in real time**.
