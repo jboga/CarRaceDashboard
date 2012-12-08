@@ -85,20 +85,14 @@ object Application extends Controller {
 // and pushes a JSON event for each event in the eventStream
 class RTEventListener extends Actor {
   val (output,channel) = Concurrent.broadcast[JsValue]
- /* lazy val channel: PushEnumerator[JsValue] = Concurrent.broadcast[JsValue]
-    onComplete = {
-      Akka.system.eventStream.unsubscribe(self)
-      context.stop(self)
-    }
-  )
-*/
+  // TODO : stop actor on channel disconnection
 
   def receive = {
-    /*case "start" =>
+    case "start" =>
       Akka.system.eventStream.subscribe(self, classOf[Event])
-      sender ! channel
+      sender ! output
     case change: Event =>
-      channel.push(toJson(change)) // Push jsonified event*/
+      channel.push(toJson(change)) // Push jsonified event
     case _ => println("ici")
   }
 }

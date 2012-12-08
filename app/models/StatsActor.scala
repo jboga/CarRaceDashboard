@@ -110,7 +110,7 @@ object StatsActor{
                 .map(v=>
                     (v.getAs[BSONObjectID]("_id").get.stringify,
                       v.getAs[BSONDouble]("value").get.value)
-                  )
+                )
             )
           case c => 
             None
