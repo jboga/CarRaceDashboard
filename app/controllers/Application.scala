@@ -1,6 +1,6 @@
 package controllers
 
-import akka.util.duration._
+import scala.concurrent.duration._
 import play.api.libs.{EventSource, Comet}
 import play.api.mvc._
 import play.api.Play.current
@@ -14,6 +14,9 @@ import play.api.libs.json.JsValue
 import models.Events._
 import play.Logger
 import simulation.Race
+import scala.language.postfixOps
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Application extends Controller {
 
@@ -23,7 +26,7 @@ object Application extends Controller {
   // - if a race exists, we display the dashboard screen
   // - if not, we display the screen to create a new race
   def index = Action { Async {
-    (Race.raceActor ? "getRace").mapTo[Option[Race]].asPromise.map{
+    (Race.raceActor ? "getRace").mapTo[Option[Race]].map{
       case Some(race) => 
         // We have a race!
         Ok(views.html.viewRace(race.trackURL,race.lapLength))
@@ -42,7 +45,7 @@ object Application extends Controller {
     formData.get("track") match {
       case url :: xs if url.length>0 =>
         // We have an url
-        (Race.raceActor ? simulation.StartRace(url,nbCars)).mapTo[Option[Race]].asPromise.map{
+        (Race.raceActor ? simulation.StartRace(url,nbCars)).mapTo[Option[Race]].map{
           case Some(race) =>
             // Race has been created!
 
@@ -60,7 +63,7 @@ object Application extends Controller {
 
   // Stop a race, by sending the "stop" message to the RaceActor
   def stopRace = Action { Async{
-    (Race.raceActor ? "stop").mapTo[Boolean].asPromise.map(res=>Redirect("/"))
+    (Race.raceActor ? "stop").mapTo[Boolean].map(res=>Redirect("/"))
   }}
 
   // Live publishes events with SSE stream
@@ -70,7 +73,7 @@ object Application extends Controller {
       val actor = Akka.system.actorOf(Props[RTEventListener])
       // Actor is listening for event on the eventStream
       // For each event, stream the data to client
-      (actor ? "start").mapTo[Enumerator[JsValue]].asPromise.map {
+      (actor ? "start").mapTo[Enumerator[JsValue]].map {
         chunks =>
           Ok.stream((chunks) &> EventSource()).as("text/event-stream")
       }
@@ -81,18 +84,21 @@ object Application extends Controller {
 // An actor, instanciated for each web client with the SSE stream, which is subscribed to the Akka eventStream 
 // and pushes a JSON event for each event in the eventStream
 class RTEventListener extends Actor {
-  lazy val channel: PushEnumerator[JsValue] = Enumerator.imperative[JsValue](
+  val (output,channel) = Concurrent.broadcast[JsValue]
+ /* lazy val channel: PushEnumerator[JsValue] = Concurrent.broadcast[JsValue]
     onComplete = {
       Akka.system.eventStream.unsubscribe(self)
       context.stop(self)
     }
   )
+*/
 
   def receive = {
-    case "start" =>
+    /*case "start" =>
       Akka.system.eventStream.subscribe(self, classOf[Event])
       sender ! channel
     case change: Event =>
-      channel.push(toJson(change)) // Push jsonified event
+      channel.push(toJson(change)) // Push jsonified event*/
+    case _ => println("ici")
   }
 }
