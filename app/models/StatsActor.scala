@@ -84,7 +84,6 @@ object StatsActor{
 
 
     // Execute a aggregate command in Mongo
-    import scala.reflect.Manifest
     private def aggregatedSpeed(value: BSONDocument):Future[Option[Seq[(String,Double)]]]=
       db.command(RawCommand(
         BSONDocument(
@@ -108,8 +107,14 @@ object StatsActor{
               result.values.toList
                 .map(v=>v.asInstanceOf[TraversableBSONDocument])
                 .map(v=>
-                    (v.getAs[BSONObjectID]("_id").get.stringify,
-                      v.getAs[BSONDouble]("value").get.value)
+                    (
+                      v.getAs[BSONString]("_id").get.value,
+                      v.get("value") match {
+                        case Some(v:BSONDouble) => v.value
+                        case Some(v:BSONInteger) => v.value.toDouble
+                        case _ => 0
+                      }
+                    )
                 )
             )
           case c => 
@@ -140,9 +145,11 @@ object StatsActor{
               result.values.toList
                 .map(v=>v.asInstanceOf[TraversableBSONDocument])
                 .map(v=>
-                    (v.getAs[BSONObjectID]("_id").get.stringify,
-                      v.getAs[BSONDouble]("value").get.value)
-                  )
+                    (
+                      v.getAs[BSONString]("_id").get.value,
+                      v.getAs[BSONDouble]("value").get.value
+                    )
+                )
             )
           case c => 
             None
