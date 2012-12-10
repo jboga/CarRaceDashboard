@@ -7,9 +7,9 @@
     var source = new EventSource(" @routes.Application.rtEventSourceStream ");
     console.log("EventSource created");
     source.onmessage = function (event) {
-        window.app.routers.RaceDashboardRouter.trigger("rtevent", JSON.parse(event.data));
-    } ;
-</script>
+    window.app.routers.RaceDashboardRouter.trigger("rtevent", JSON.parse(event.data));
+    };
+    </script>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">

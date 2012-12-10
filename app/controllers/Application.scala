@@ -50,18 +50,18 @@ object Application extends Controller {
     Async {
       (Race.raceActor ? "getRace").mapTo[Option[Race]].map {
         case Some(race) =>
-          val height = 300
-          val width = 400
-          val minLon = race.track.minBy(cp => cp.position.longitude).position.longitude
-          val minLat = race.track.minBy(cp => cp.position.latitude).position.latitude
-          val maxLon = race.track.maxBy(cp => cp.position.longitude).position.longitude
-          val maxLat = race.track.maxBy(cp => cp.position.latitude).position.latitude
-          val lonWidth = maxLon - minLon
-          val latHeight = maxLat - minLat
-          val calcX = x(width * 0.8, lonWidth, minLon)(_)
-          val calcY = y(height * 0.8, latHeight, minLat)(_)
-          val track = race.track.map(cp => List(calcX(cp.position.longitude).toInt, height - calcY(cp.position.latitude).toInt)).toArray
-          Ok(toJson(track.flatten))
+//          val height = 300
+//          val width = 400
+//          val minLon = race.track.minBy(cp => cp.position.longitude).position.longitude
+//          val minLat = race.track.minBy(cp => cp.position.latitude).position.latitude
+//          val maxLon = race.track.maxBy(cp => cp.position.longitude).position.longitude
+//          val maxLat = race.track.maxBy(cp => cp.position.latitude).position.latitude
+//          val lonWidth = maxLon - minLon
+//          val latHeight = maxLat - minLat
+//          val calcX = x(width * 0.8, lonWidth, minLon)(_)
+//          val calcY = y(height * 0.8, latHeight, minLat)(_)
+          val track = race.track.map(cp => Map("x" -> cp.position.longitude, "y" -> cp.position.latitude)).toArray
+          Ok(toJson(track))
         case None =>
           // Not yet started : not track yet
           NotFound("Race Not started")
