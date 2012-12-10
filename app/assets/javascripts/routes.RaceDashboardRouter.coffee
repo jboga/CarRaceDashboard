@@ -3,7 +3,7 @@ class RaceDashboardRouter extends Backbone.Router
   initialize: ()->
     @cars = new Backbone.Collection()
     @cars.comparator = (car)-> car.get('rank')
-    @trackView = new app.views.TrackView(model: @cars)
+    @trackView = new app.views.Html5TrackView(model: @cars)
     @rtDataView = new app.views.RTDataView(model: @cars)
     @statView = new app.views.StatDataView(model: @cars)
     @bind("rtevent", @newEvent, @)

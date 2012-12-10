@@ -37,6 +37,15 @@ class Html5TrackView extends Backbone.View
       stroke: 'white',
       strokeWidth: 3
     })
+#    imageObj = new Image()
+#    img = new Kinetic.Image({
+#      x: 50
+#      y: 50
+#      width: 10
+#      hight: 10
+#      image: imageObj
+#    })
+
     @layer.add(@poly)
     @stage.add(@layer)
 
@@ -51,17 +60,25 @@ class Html5TrackView extends Backbone.View
     theMarker = car.get('marker')
     pos = car.get('pos')
     if theMarker
-      theMarker.x = @calcX(pos.longitude)
-      theMarker.y = @calcY(pos.latitude)
+      theMarker.transitionTo({
+        x: @calcX(pos.longitude)-15
+        y: @calcY(pos.latitude)-35
+        duration: 1
+      })
     else
       imageObj = new Image()
+      imageObj.onload = ()=>
+        marker = new Kinetic.Image({
+          x: @calcX(pos.longitude)-15
+          y: @calcY(pos.latitude)-35
+          image: imageObj
+        })
+        car.set('marker', marker)
+        mlayer = new Kinetic.Layer()
+        mlayer.add(marker)
+        @stage.add(mlayer)
       imageObj.src = car.get('iconUrl')
-      marker = new Kinetic.Image({
-        x: @calcX(pos.longitude)
-        y: @calcY(pos.latitude)
-        image: imageObj
-      })
-      car.set('marker', marker)
+
 
 window.app = window.app || {}
 window.app.views = window.app.views || {}
