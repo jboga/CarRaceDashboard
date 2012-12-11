@@ -17,6 +17,7 @@ import simulation.Race
 import scala.language.postfixOps
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.libs.ws.WS
 
 object Application extends Controller {
 
@@ -42,24 +43,11 @@ object Application extends Controller {
     Ok(views.html.viewHtml5Race())
   }
 
-  def x(pixWidth: Double, lonWidth: Double, minLon: Double)(lon: Double) = pixWidth * 0.1 + (lon - minLon) * pixWidth / lonWidth
-
-  def y(pixHeight: Double, latHeight: Double, minLat: Double)(lon: Double) = pixHeight * 0.1 + (lon - minLat) * pixHeight / latHeight
 
   def getTrack = Action {
     Async {
       (Race.raceActor ? "getRace").mapTo[Option[Race]].map {
         case Some(race) =>
-//          val height = 300
-//          val width = 400
-//          val minLon = race.track.minBy(cp => cp.position.longitude).position.longitude
-//          val minLat = race.track.minBy(cp => cp.position.latitude).position.latitude
-//          val maxLon = race.track.maxBy(cp => cp.position.longitude).position.longitude
-//          val maxLat = race.track.maxBy(cp => cp.position.latitude).position.latitude
-//          val lonWidth = maxLon - minLon
-//          val latHeight = maxLat - minLat
-//          val calcX = x(width * 0.8, lonWidth, minLon)(_)
-//          val calcY = y(height * 0.8, latHeight, minLat)(_)
           val track = race.track.map(cp => Map("x" -> cp.position.longitude, "y" -> cp.position.latitude)).toArray
           Ok(toJson(track))
         case None =>
@@ -67,7 +55,15 @@ object Application extends Controller {
           NotFound("Race Not started")
       }
     }
+  }
 
+  def getImageInfo(mapArea:String) = Action {
+      Async {
+        val url = "http://dev.virtualearth.net/REST/v1/Imagery/Map/Road?mapArea="+mapArea+"&mapSize=500,300&format=png&mapMetadata=1&o=json&key=AvRShB8c6uie3nSjATiMunjWWCRCqyZR4cfukh-tPsLS0f6YlZF1HTaVH_tRQVko"
+        WS.url(url).get().map { response =>
+          Ok(response.json)
+        }
+      }
   }
 
   // Start controller, it will start a new race

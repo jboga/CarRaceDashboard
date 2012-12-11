@@ -1,7 +1,7 @@
 class Html5TrackView extends Backbone.View
 
   el: '#track'
-  widthM: 400
+  widthM: 500
   heightM: 300
 
 
@@ -23,60 +23,79 @@ class Html5TrackView extends Backbone.View
     @model.on('change:pos', @updatePos)
 
   drawTrack: (result)=>
+    mapImageObj = new Image()
+    mapImageObj.onload = ()=>
+      mapImage = new Kinetic.Image({
+      image: mapImageObj
+      width: @widthM
+      height: @heightM
+      })
+      @layer.add(mapImage)
+      mapImage.moveToBottom()
+      @layer.draw()
     @layer = new Kinetic.Layer()
-    @minX = _.min(_.pluck(result, 'x'))
-    @minY = _.min(_.pluck(result, 'y'))
-    @maxX = _.max(_.pluck(result, 'x'))
-    @maxY = _.max(_.pluck(result, 'y'))
-    @lonW = @maxX - @minX
-    @latH = @maxY - @minY
+    @minTX = _.min(_.pluck(result, 'x'))
+    @minTY = _.min(_.pluck(result, 'y'))
+    @maxTX = _.max(_.pluck(result, 'x'))
+    @maxTY = _.max(_.pluck(result, 'y'))
+
+    mapurl = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road?mapArea='+ @minTY + ',' + @minTX + ',' + @maxTY + ',' + @maxTX + '&mapSize='+@widthM+','+@heightM+'&format=png&mapMetadata=0&key=AvRShB8c6uie3nSjATiMunjWWCRCqyZR4cfukh-tPsLS0f6YlZF1HTaVH_tRQVko'
+    mapdataurl = '/imageinfo?mapArea='+ @minTY + ',' + @minTX + ',' + @maxTY + ',' + @maxTX
+    $.ajax(
+      type: "GET",
+      url:  mapdataurl,
+      contentType: "application/json",
+      data: ""
+      async: false
+    ).done (result)=>
+      @calculateScale(result)
+
+    mapImageObj.src = mapurl
+
     arr = _.map(result, (coord)=> [ @calcX(coord.x) , @calcY(coord.y)])
     track = _.flatten(arr)
     @poly = new Kinetic.Polygon({
-      points: track,
-      stroke: 'white',
-      strokeWidth: 3
+    points: track,
+    stroke: 'black',
+    strokeWidth: 3
     })
-#    imageObj = new Image()
-#    img = new Kinetic.Image({
-#      x: 50
-#      y: 50
-#      width: 10
-#      hight: 10
-#      image: imageObj
-#    })
-
     @layer.add(@poly)
     @stage.add(@layer)
 
 
+  calculateScale: (result)=>
+    @minY = result.resourceSets[0].resources[0].bbox[0]
+    @minX = result.resourceSets[0].resources[0].bbox[1]
+    @maxY = result.resourceSets[0].resources[0].bbox[2]
+    @maxX = result.resourceSets[0].resources[0].bbox[3]
+    @lonW = @maxX - @minX
+    @latH = @maxY - @minY
+
   calcX: (lon)=>
-    @widthM * 0.1 + (lon - @minX) * @widthM * 0.8 / @lonW
+    (lon - @minX) * @widthM / @lonW
 
   calcY: (lat)=>
-    @heightM - (@heightM * 0.1 + (lat - @minY) * @heightM * 0.8 / @latH)
+    @heightM - ((lat - @minY) * @heightM / @latH)
 
   updatePos: (car)=>
     theMarker = car.get('marker')
     pos = car.get('pos')
     if theMarker
       theMarker.transitionTo({
-        x: @calcX(pos.longitude)-15
-        y: @calcY(pos.latitude)-35
-        duration: 1
+      x: @calcX(pos.longitude)-15
+      y: @calcY(pos.latitude)-35
+      duration: 1
       })
     else
       imageObj = new Image()
       imageObj.onload = ()=>
         marker = new Kinetic.Image({
-          x: @calcX(pos.longitude)-15
-          y: @calcY(pos.latitude)-35
-          image: imageObj
+        x: @calcX(pos.longitude)-15
+        y: @calcY(pos.latitude)-35
+        image: imageObj
         })
         car.set('marker', marker)
-        mlayer = new Kinetic.Layer()
-        mlayer.add(marker)
-        @stage.add(mlayer)
+        @layer.add(marker)
       imageObj.src = car.get('iconUrl')
 
 

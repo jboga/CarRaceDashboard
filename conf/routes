@@ -10,6 +10,7 @@ GET     /rtEventSource              controllers.Application.rtEventSourceStream
 
 # For test purpose
 GET     /track                      controllers.Application.getTrack
+GET     /imageinfo                  controllers.Application.getImageInfo(mapArea)
 GET     /html5track                 controllers.Application.html5Track
 
 # Map static resources from the /public folder to the /assets URL path
