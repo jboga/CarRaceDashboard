@@ -96,8 +96,7 @@ interface. Another is used as a Event Source for a Server Sent Events stream ope
 a new Actor is instanciated for each web client who connects to the race. This actor is a listener, which is subscribed
 to the eventStream and publishes a JSONified message to the SSE socket for each received event.
 
-Unfortunately, we couldn't use the reactivemongo driver in this application because it requires Play 2.1. We'll update
-the application to use it as soon as Play 2.1 is released in the Typesafe Stack.
+The application uses the reactivemongo driver.
 
 The client application is developed in Coffeescript with backbone.js and Twitter Bootstrap. We love the integration
 of Coffeescript in Play.
