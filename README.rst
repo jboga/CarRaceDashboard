@@ -112,7 +112,7 @@ To start the application locally, type the following line in the root directory 
 
 The application is now available on http://localhost:9000
 
-Another way to test the application is to go to the public demo at http://carracedashboard.trustedpaas.lu.
+Another way to test the application is to go to the public demo at http://54.235.210.18:9000/.
 Don't forget to stop the race if you use the public link to test the application.
 
 ====================
