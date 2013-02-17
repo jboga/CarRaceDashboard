@@ -5,11 +5,13 @@ import play.api.libs.concurrent._
 import simulation.Race._
 import scala.util.Random
 import akka.pattern.ask
-import akka.util.duration._
 import akka.util.Timeout
 import akka.actor._
-import akka.util.duration._
+import scala.concurrent.duration._
 import models.Events._
+import scala.language.postfixOps
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /*  
     These streams are used to obtain test datas.
@@ -22,9 +24,9 @@ class Streams(race:Race) {
   // Enumerators which produce events (Position,Speed and Distance) based on a Car actor
   val period = 1 seconds
 
-  def position(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
+  def position(actor:ActorRef)=Enumerator.generateM[Event]{
     Promise.timeout("",period).flatMap{str=>
-      (actor ? "getState").mapTo[Option[Car]].asPromise.map(
+      (actor ? "getState").mapTo[Option[Car]].map(
         _.map(car=>
           PositionEvent(
             car.label,
@@ -36,9 +38,9 @@ class Streams(race:Race) {
     }
   }
 
-  def distance(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
+  def distance(actor:ActorRef)=Enumerator.generateM[Event]{
     Promise.timeout("",period).flatMap{str=>
-      (actor ? "getState").mapTo[Option[Car]].asPromise.map(
+      (actor ? "getState").mapTo[Option[Car]].map(
         _.map(car=>
           DistEvent(
             car.label,
@@ -49,9 +51,9 @@ class Streams(race:Race) {
     }
   }
 
-  def speed(actor:ActorRef)=Enumerator.fromCallback[Event]{()=>
+  def speed(actor:ActorRef)=Enumerator.generateM[Event]{
     Promise.timeout("",period).flatMap{str=>
-      (actor ? "getState").mapTo[Option[Car]].asPromise.map(
+      (actor ? "getState").mapTo[Option[Car]].map(
         _.map(car=>
           SpeedEvent(
             car.label,

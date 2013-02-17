@@ -2,11 +2,14 @@ package simulation
 
 import scala.util.Random
 import akka.actor._
-import akka.util.duration._
+import scala.concurrent.duration._
 import math._
 import play.api.libs.concurrent._
 import play.api.Play.current
 import play.api.libs.iteratee._
+import scala.language.postfixOps
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Position(latitude: Double, longitude: Double)
 case class CheckPoint(id: Int, position: Position)

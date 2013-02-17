@@ -1,11 +1,9 @@
-class RaceDashboardRouter extends Backbone.Router
+class TestRouter extends Backbone.Router
 
   initialize: ()->
     @cars = new Backbone.Collection()
     @cars.comparator = (car)-> car.get('rank')
-    @trackView = new app.views.Html5TrackView(model: @cars)
-    @rtDataView = new app.views.RTDataView(model: @cars)
-    @statView = new app.views.StatDataView(model: @cars)
+    @map = new app.views.Html5TrackView(model: @cars)
     @bind("rtevent", @newEvent, @)
 
   routes:
@@ -37,7 +35,7 @@ class RaceDashboardRouter extends Backbone.Router
 
 window.app=window.app || {}
 window.app.routers=window.app.routers || {}
-window.app.routers.RaceDashboardRouter=new RaceDashboardRouter()
+window.app.routers.TestRouter=new TestRouter()
 
 $ ->
   Backbone.history.start

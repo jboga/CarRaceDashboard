@@ -1,0 +1,22 @@
+@main("Welcome to Car Race Dashboard") {
+
+
+    <script type="text/javascript">
+    var source = new EventSource(" @routes.Application.rtEventSourceStream ");
+    console.log("EventSource created");
+    source.onmessage = function (event) {
+        console.log("TestRouter event received");
+        window.app.routers.TestRouter.trigger("rtevent", JSON.parse(event.data));
+     };
+    </script>
+
+
+    <div class="container">
+        <div id="track" style="width:400px; height:300px"></div>
+    </div>
+
+
+    <script type="text/javascript" src=" @routes.Assets.at("javascripts/models.Car.js") "></script>
+    <script type="text/javascript" src=" @routes.Assets.at("javascripts/views.Html5Track.js") "></script>
+    <script type="text/javascript" src=" @routes.Assets.at("javascripts/routes.TestRouter.js") "></script>
+}

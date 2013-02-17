@@ -64,10 +64,10 @@ class RTDataView extends Backbone.View
   changeSelectedDriver: (selDriver)=>
     if @driver
       @driver.off('change', @updateRTData)
-      @driver.get('marker').setIcon(@driver.get('iconUrl'))
+      #driver.get('marker').setIcon(@driver.get('iconUrl'))
     @driver = selDriver
     @label.text(selDriver.get('name'))
-    @driver.get('marker').setIcon('/assets/images/map-icons/selcar.png')
+    #@driver.get('marker').setIcon('/assets/images/map-icons/selcar.png')
     @updateRTData()
     @driver.on('change', @updateRTData)
 

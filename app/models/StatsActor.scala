@@ -2,12 +2,19 @@ package models
 
 import akka.actor._
 import models.DB._
-import com.mongodb.casbah.Imports._
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
 import play.api.Logger
-import akka.util.duration._
+import scala.concurrent.duration._
 import models.Events._
+import scala.language.postfixOps
+import reactivemongo.api._
+import reactivemongo.bson._
+import reactivemongo.core.commands.RawCommand
+import scala.concurrent.Future
+import scala.util.Success
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object StatsActor{
 
@@ -24,32 +31,32 @@ object StatsActor{
     def receive = {
 
       case "avgSpeed"=>
-        aggregatedSpeed[Double](MongoDBObject("$avg"->"$speed")) match {
-          case Some(carsWithAvg) =>
+        aggregatedSpeed(BSONDocument("$avg"->BSONString("$speed"))).onComplete{
+          case Success(Some(carsWithAvg)) =>
             carsWithAvg
               .map((value)=>StatSpeedEvent("avgSpeed",value._1,value._2))
               .foreach{event=>
                 logger.debug("New stat : "+event)
                 Akka.system.eventStream.publish(event)
               }
-          case None =>
+          case _ =>
         }
 
       case "maxSpeed"=>
-        aggregatedSpeed[Int](MongoDBObject("$max"->"$speed")) match {
-          case Some(carsWithMax) =>
+        aggregatedSpeed(BSONDocument("$max"->BSONString("$speed"))).onComplete{
+          case Success(Some(carsWithMax)) =>
             carsWithMax
               .map((value)=>StatSpeedEvent("maxSpeed",value._1,value._2))
               .foreach{event=>
                 logger.debug("New stat : "+event)
                 Akka.system.eventStream.publish(event)
               }
-          case None =>
+          case _ =>
         }
 
       case "ranking" =>
-        aggregatedMaxDist match {
-          case Some(dist) =>
+        aggregatedMaxDist.onComplete{
+          case Success(Some(dist)) =>
             dist
               .sortWith((x,y)=>x._2 > y._2)
               .map(_._1)
@@ -72,57 +79,82 @@ object StatsActor{
         stopRank.map(_.cancel)
         stopAvg.map(_.cancel)
         stopMax.map(_.cancel)
-        connection("events").dropCollection
+        db("events").drop
     }
 
 
     // Execute a aggregate command in Mongo
-    import scala.reflect.Manifest
-    private def aggregatedSpeed[T: Manifest](value: MongoDBObject):Option[Seq[(String,T)]]=
-      connection.command(
-        MongoDBObject(
-          "aggregate"->"events",
-          "pipeline" -> MongoDBList(
-            MongoDBObject(
-              "$match" -> MongoDBObject("type" -> "speed")
+    private def aggregatedSpeed(value: BSONDocument):Future[Option[Seq[(String,Double)]]]=
+      db.command(RawCommand(
+        BSONDocument(
+          "aggregate"-> BSONString("events"),
+          "pipeline" -> BSONArray(
+            BSONDocument(
+              "$match" -> BSONDocument("type" -> BSONString("speed"))
             ),
-            MongoDBObject(
-              "$group" -> MongoDBObject(
-                "_id" -> "$car",
+            BSONDocument(
+              "$group" -> BSONDocument(
+                "_id" -> BSONString("$car"),
                 "value" -> value
               )
             )
           )
         )
-      ).get("result") match {
-          case result:BasicDBList =>
-            Some(result.map(_.asInstanceOf[BasicDBObject]).map(v=>(v.getAs[String]("_id").get,v.getAs[T]("value").get)))
+      )).map{result=>
+        result.getAs[BSONArray]("result") match {
+          case Some(result) =>
+            Some(
+              result.values.toList
+                .map(v=>v.asInstanceOf[TraversableBSONDocument])
+                .map(v=>
+                    (
+                      v.getAs[BSONString]("_id").get.value,
+                      v.get("value") match {
+                        case Some(v:BSONDouble) => v.value
+                        case Some(v:BSONInteger) => v.value.toDouble
+                        case _ => 0
+                      }
+                    )
+                )
+            )
           case c => 
             None
         }
+      }
     
-    private def aggregatedMaxDist:Option[Seq[(String,Double)]]=
-      connection.command(
-        MongoDBObject(
-          "aggregate"->"events",
-          "pipeline" -> MongoDBList(
-            MongoDBObject(
-              "$match" -> MongoDBObject("type" -> "dist")
+    private def aggregatedMaxDist:Future[Option[Seq[(String,Double)]]]=
+      db.command(RawCommand(
+        BSONDocument(
+          "aggregate"-> BSONString("events"),
+          "pipeline" -> BSONArray(
+            BSONDocument(
+              "$match" -> BSONDocument("type" -> BSONString("dist"))
             ),
-            MongoDBObject(
-              "$group" -> MongoDBObject(
-                "_id" -> "$car",
-                "value" -> MongoDBObject("$max"->"$dist")
+            BSONDocument(
+              "$group" -> BSONDocument(
+                "_id" -> BSONString("$car"),
+                "value" -> BSONDocument("$max"->BSONString("$dist"))
               )
             )
           )
         )
-      ).get("result") match {
-          case result:BasicDBList =>
-            Some(result.map(_.asInstanceOf[BasicDBObject]).map(v=>(v.getAs[String]("_id").get,v.getAs[Double]("value").get)))
+      )).map{result=>
+        result.getAs[BSONArray]("result") match {
+          case Some(result) =>
+            Some(
+              result.values.toList
+                .map(v=>v.asInstanceOf[TraversableBSONDocument])
+                .map(v=>
+                    (
+                      v.getAs[BSONString]("_id").get.value,
+                      v.getAs[BSONDouble]("value").get.value
+                    )
+                )
+            )
           case c => 
             None
         }
+      }
 
 
 
