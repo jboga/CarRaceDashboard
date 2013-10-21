@@ -81,11 +81,14 @@ class Html5TrackView extends Backbone.View
     theMarker = car.get('marker')
     pos = car.get('pos')
     if theMarker
-      theMarker.transitionTo({
-      x: @calcX(pos.longitude)-15
-      y: @calcY(pos.latitude)-35
-      duration: 1
+      tween = new Kinetic.Tween({
+        node: theMarker,
+        x: @calcX(pos.longitude)-15,
+        y: @calcY(pos.latitude)-35,
+        rotation: 0,
+        duration:1
       })
+      tween.play()
     else
       imageObj = new Image()
       imageObj.onload = ()=>

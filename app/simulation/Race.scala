@@ -12,8 +12,10 @@ import scala.language.postfixOps
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Position(latitude: Double, longitude: Double)
-case class CheckPoint(id: Int, position: Position)
-case class Car(label: String, point: CheckPoint, speed: Int, totalDist: Double)
+
+case class TrackPoint(id: Int, position: Position)
+
+case class Car(label: String, point: TrackPoint, speed: Int, totalDist: Double)
 
 object Race {
 
@@ -36,14 +38,15 @@ object Race {
     Position(point1.latitude * (1 - ratio) + point2.latitude * ratio, point1.longitude * (1 - ratio) + point2.longitude * ratio)
   }
 
-  lazy val raceActor=system.actorOf(Props[RaceActor])
+  lazy val raceActor = system.actorOf(Props[RaceActor])
 
 }
 
 class Race(val trackURL: String, val nbCars: Int) {
+
   import simulation.Race._
 
-  type Track = List[CheckPoint]
+  type Track = List[TrackPoint]
 
   val track: Track = simulation.TrackParser.readTrack(trackURL)
 
@@ -56,18 +59,18 @@ class Race(val trackURL: String, val nbCars: Int) {
 
 
   // Get next checkpoint, based on track
-  private def nextTrackPoint(point: CheckPoint) =
+  private def nextTrackPoint(point: TrackPoint) =
     if (point.id + 1 >= track.size)
       track.head // new lap
     else
       track(point.id + 1)
 
   //return new CheckPoint on the track at distance d from point
-  private def next(point: CheckPoint, d: Double): CheckPoint = {
+  private def next(point: TrackPoint, d: Double): TrackPoint = {
     val nextPoint = nextTrackPoint(point)
     val distanceBetween = computeDistance(point.position, nextPoint.position)
     if (d < distanceBetween)
-      CheckPoint(point.id, computePosition(point.position, nextPoint.position, d))
+      TrackPoint(point.id, computePosition(point.position, nextPoint.position, d))
     else
       next(nextPoint, (d - distanceBetween))
   }
@@ -136,7 +139,7 @@ class Race(val trackURL: String, val nbCars: Int) {
     loop(car)
   }
 
-  val carActors = cars.map(car => system.actorOf(Props(new CarActor(car,this))))
+  val carActors = cars.map(car => system.actorOf(Props(new CarActor(car, this))))
 
   // Get a random int between from and to
   private def randomInt(from: Int, to: Int) = from + Random.nextInt(to - from)
@@ -144,11 +147,11 @@ class Race(val trackURL: String, val nbCars: Int) {
 }
 
 // An actor which moves a Car on the track, based on the stream
-class CarActor(carLabel: String, race:Race) extends Actor {
+class CarActor(carLabel: String, race: Race) extends Actor {
 
   private lazy val iterator = race.raceStream(Car(carLabel, race.track.head, 130, 0)).iterator
-  private var state:Option[Car] = None
-  private var stop:Option[Cancellable]=None
+  private var state: Option[Car] = None
+  private var stop: Option[Cancellable] = None
 
   def receive = {
     // The race is starting!
@@ -167,25 +170,25 @@ class CarActor(carLabel: String, race:Race) extends Actor {
       stop.map(_.cancel)
 
     // Send the current car state to the sender
-    case "getState" => 
+    case "getState" =>
       sender ! state
   }
 
 }
 
-case class StartRace(trackURL:String, nbCars:Int)
+case class StartRace(trackURL: String, nbCars: Int)
 
 // An actor which represent the race, with a BroadcastRouter to fire "start" event on all cars.
-class  RaceActor extends Actor{
+class RaceActor extends Actor {
 
-  var currentRace:Option[Race]=None
-  var router:Option[ActorRef]=None
+  var currentRace: Option[Race] = None
+  var router: Option[ActorRef] = None
 
   def receive = {
-    case StartRace(url,nbCars) => 
+    case StartRace(url, nbCars) =>
       currentRace match {
-        case None => 
-          currentRace=Some(new Race(url,nbCars))
+        case None =>
+          currentRace = Some(new Race(url, nbCars))
           router = Some(context.actorOf(Props[CarActor].withRouter(akka.routing.BroadcastRouter(currentRace.get.carActors))))
 
           // Fire start event
@@ -200,17 +203,21 @@ class  RaceActor extends Actor{
           })
 
           sender ! currentRace
-        case _ => 
+        case _ =>
           sender ! None
       }
 
     case "stop" =>
-      router.map(_ ! "stop")
-      models.StatsActor.actor ! "stop"
-      currentRace = None
-      sender ! true
+      currentRace match {
+        case None => sender ! false
+        case Some(_) =>
+          router.map(_ ! "stop")
+          models.StatsActor.actor ! "stop"
+          currentRace = None
+          sender ! true
+      }
 
-    case "getRace" => 
+    case "getRace" =>
       sender ! currentRace
   }
 
