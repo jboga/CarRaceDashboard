@@ -21,7 +21,7 @@ import play.api.libs.ws.WS
 
 object Application extends Controller {
 
-  implicit val timeout = Timeout(5 seconds)
+  implicit val timeout = Timeout(30 seconds)
 
   // Index of the application. We check if a race is already started (by calling the RaceActor)
   // - if a race exists, we display the dashboard screen

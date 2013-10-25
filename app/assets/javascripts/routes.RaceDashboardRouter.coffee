@@ -20,7 +20,7 @@ class RaceDashboardRouter extends Backbone.Router
       car.set(event.type, event.value)
       @cars.sort()
     else
-      icon = "/assets/images/map-icons/Car " + (@cars.length + 1) + ".png"
+      icon = "/assets/images/map-icons/Car" + (@cars.length + 1) + ".png"
       newCar = new app.models.Car({
         name: event.car
         rank: 0

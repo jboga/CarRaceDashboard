@@ -151,13 +151,13 @@ class CarActor(carLabel: String, race: Race) extends Actor {
 
   private lazy val iterator = race.raceStream(Car(carLabel, race.track.head, 130, 0)).iterator
   private var state: Option[Car] = None
-  private var stop: Option[Cancellable] = None
+  private var timer: Option[Cancellable] = None
 
   def receive = {
     // The race is starting!
     case "start" =>
       state = Some(iterator.next)
-      stop = Some(
+      timer = Some(
         context.system.scheduler.schedule(Race.period seconds, Race.period seconds, self, "move") // Schedule each move of the car
       )
 
@@ -167,7 +167,8 @@ class CarActor(carLabel: String, race: Race) extends Actor {
 
     case "stop" =>
       state = None
-      stop.map(_.cancel)
+      timer.map(_.cancel)
+      timer = None
 
     // Send the current car state to the sender
     case "getState" =>
